@@ -7,15 +7,10 @@ import {
   TableCell,
   Text
 } from '@tremor/react';
+import numeral from 'numeral';
 
-export interface StakingProtocol {
-  name: string;
-  tvl: number;
-  netApy: number;
-  stakingApy: number;
-  tokenRewardsApy: number;
-  fees: number;
-}
+import { StakingProtocol } from './types';
+
 
 export default async function StakingProtocolsTable({ stakingProtocols }: { stakingProtocols: StakingProtocol[] }) {
   return (
@@ -37,19 +32,19 @@ export default async function StakingProtocolsTable({ stakingProtocols }: { stak
               <Text>{sp.name}</Text>
             </TableCell>
             <TableCell>
-              <Text>{sp.tvl}</Text>
+              <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
             </TableCell>
             <TableCell>
-              <Text>{sp.netApy}</Text>
+              <Text>{numeral(sp.netApy).format('0.0%')}</Text>
             </TableCell>
             <TableCell>
-              <Text>{sp.stakingApy}</Text>
+              <Text>{numeral(sp.stakingApy).format('0.0%')}</Text>
             </TableCell>
             <TableCell>
-              <Text>{sp.tokenRewardsApy}</Text>
+              <Text>{numeral(sp.tokenRewardsApy).format('0.0%')}</Text>
             </TableCell>
             <TableCell>
-              <Text>{sp.fees}</Text>
+              <Text>{numeral(sp.fees).format('0.0%')}</Text>
             </TableCell>
           </TableRow>
         ))}
