@@ -24,20 +24,28 @@ const columns = [
 ]
 
 const sortData = (data: StakingProtocol[], sortField: string, sortOrder: SortOrder): StakingProtocol[] => {
-  if (!sortField) {
+  if (!sortField || sortOrder === SortOrder.None) {
     return data;
   }
 
   const sorted = [...data].sort((a: any, b: any) => {
-    if (a[sortField] === null) return 1;
-    if (b[sortField] === null) return -1;
-    if (a[sortField] === null && b[sortField] === null) return 0;
-    return (
-      a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
-        numeric: true,
-      }) * (sortOrder === SortOrder.Ascending ? 1 : -1)
-    );
+    const aValue = a[sortField];
+    const bValue = b[sortField];
+    if (aValue === null) return 1;
+    if (bValue === null) return -1;
+    if (aValue === null && bValue === null) return 0;
+
+    let compare;
+    if (typeof aValue === 'number') {
+      compare = aValue - bValue;
+    }
+    else {
+      compare = aValue.toString().localeCompare(bValue.toString(), "en");
+    }
+
+    return (compare * (sortOrder === SortOrder.Ascending ? 1 : -1));
   });
+
   return sorted;
 };
 
@@ -98,7 +106,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
               <Text>{numeral(sp.tokenRewardsApy).format('0.0%')}</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.fees).format('0.0%')}</Text>
+              <Text>{numeral(sp.fees).format('0.00%')}</Text>
             </TableCell>
           </TableRow>
         ))}
