@@ -1,3 +1,6 @@
+'use client';
+import { useState } from "react";
+
 import {
   Table,
   TableHead,
@@ -9,24 +12,75 @@ import {
 } from '@tremor/react';
 import numeral from 'numeral';
 
-import { StakingProtocol } from './types';
+import { StakingProtocol, SortOrder } from './types';
 
+const columns = [
+  { label: 'Staking Protocol', property: 'name' },
+  { label: 'TVL', property: 'tvl' },
+  { label: 'Net APY', property: 'netApy' },
+  { label: 'Staking APY', property: 'stakingApy' },
+  { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
+  { label: 'Fees', property: 'fees' }
+]
 
-export default async function StakingProtocolsTable({ stakingProtocols }: { stakingProtocols: StakingProtocol[] }) {
+const sortData = (data: StakingProtocol[], sortField: string, sortOrder: SortOrder): StakingProtocol[] => {
+  if (!sortField) {
+    return data;
+  }
+
+  const sorted = [...data].sort((a: any, b: any) => {
+    if (a[sortField] === null) return 1;
+    if (b[sortField] === null) return -1;
+    if (a[sortField] === null && b[sortField] === null) return 0;
+    return (
+      a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+        numeric: true,
+      }) * (sortOrder === SortOrder.Ascending ? 1 : -1)
+    );
+  });
+  return sorted;
+};
+
+const DEFAULT_SORT_ORDER = SortOrder.Ascending;
+
+export default function StakingProtocolsTable({ stakingProtocols }: { stakingProtocols: StakingProtocol[] }) {
+  const [sortField, setSortField] = useState("");
+  const [sortOrder, setSortOrder] = useState(SortOrder.None);
+  const [stakingProtocolsSorted, setStakingProtocolsSorted] = useState(sortData(stakingProtocols, sortField, sortOrder));
+
+  const handleSortingChange = (field: string) => {
+    // If the field is the same, toggle the sort order, Otherwise, set the default sort order
+    const newSortOrder =
+      field === sortField && sortOrder === SortOrder.Ascending ? SortOrder.Descending : DEFAULT_SORT_ORDER;
+    setSortField(field);
+    setSortOrder(newSortOrder);
+    setStakingProtocolsSorted(sortData(stakingProtocols, field, newSortOrder));
+  };
+
   return (
-    <Table>
+    <Table className="protocol-table">
       <TableHead>
         <TableRow>
-          <TableHeaderCell>Staking Protocol</TableHeaderCell>
-          <TableHeaderCell>TVL</TableHeaderCell>
-          <TableHeaderCell>Net APY</TableHeaderCell>
-          <TableHeaderCell>Staking APY</TableHeaderCell>
-          <TableHeaderCell>Token Rewards APY</TableHeaderCell>
-          <TableHeaderCell>Fees</TableHeaderCell>
+          {
+            columns.map((column) => {
+              // Set the class name for the sort icon
+              // Only single column sorting is supported
+              let className = 'default';
+              if (column.property === sortField) {
+                sortOrder === SortOrder.Ascending ? className = 'up' : className = 'down';
+              }
+
+              return (
+                <TableHeaderCell key={column.property} className={className} onClick={() => handleSortingChange(column.property)}>
+                  {column.label}
+                </TableHeaderCell>
+              )
+            })
+          }
         </TableRow>
       </TableHead>
       <TableBody>
-        {stakingProtocols.map((sp) => (
+        {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
             <TableCell>
               <Text>{sp.name}</Text>

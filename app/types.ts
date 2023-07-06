@@ -6,3 +6,9 @@ export interface StakingProtocol {
   tokenRewardsApy: number;
   fees: number;
 }
+
+export enum SortOrder {
+  None,
+  Ascending,
+  Descending
+}
