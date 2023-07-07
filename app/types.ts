@@ -5,6 +5,7 @@ export interface StakingProtocol {
   stakingApy: number;
   tokenRewardsApy: number;
   fees: number;
+  logoUrl: string;
 }
 
 export enum SortOrder {

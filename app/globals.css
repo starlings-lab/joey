@@ -25,3 +25,15 @@ body {
 .protocol-table th.default {
   background-image: url("./assets/default.png");
 }
+
+.protocol-table tr .logo {
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+}
+
+.protocol-table tr .name {
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 5px;
+}

@@ -16,7 +16,7 @@ import { StakingProtocol, SortOrder } from './types';
 
 const columns = [
   { label: 'Staking Protocol', property: 'name' },
-  { label: 'TVL', property: 'tvl' },
+  { label: 'TVL($)', property: 'tvl' },
   { label: 'Net APY', property: 'netApy' },
   { label: 'Staking APY', property: 'stakingApy' },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
@@ -91,22 +91,23 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
             <TableCell>
-              <Text>{sp.name}</Text>
+              <img src={sp.logoUrl} className="logo" />
+              <Text className="name" >{sp.name}</Text>
             </TableCell>
             <TableCell>
               <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.netApy).format('0.0%')}</Text>
+              <Text>{numeral(sp.netApy).format('0.00')}%</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.stakingApy).format('0.0%')}</Text>
+              <Text>{numeral(sp.stakingApy).format('0.00')}%</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.tokenRewardsApy).format('0.0%')}</Text>
+              <Text>{numeral(sp.tokenRewardsApy).format('0.00')}%</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.fees).format('0.00%')}</Text>
+              <Text>{numeral(sp.fees).format('0')}%</Text>
             </TableCell>
           </TableRow>
         ))}
