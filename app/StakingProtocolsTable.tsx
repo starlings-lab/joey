@@ -10,6 +10,8 @@ import {
   TableCell,
   Text
 } from '@tremor/react';
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import { Icon } from "@tremor/react";
 import numeral from 'numeral';
 
 import { StakingProtocol, SortOrder } from './types';
@@ -17,10 +19,10 @@ import { StakingProtocol, SortOrder } from './types';
 const columns = [
   { label: 'Staking Protocol', property: 'name' },
   { label: 'TVL($)', property: 'tvl' },
-  { label: 'Net APY', property: 'netApy' },
+  { label: 'Net APY', property: 'netApy', info: 'Sum of staking & rewards APY after fees' },
   { label: 'Staking APY', property: 'stakingApy' },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
-  { label: 'Fees', property: 'fees' }
+  { label: 'Fees', property: 'fees', info: 'Fees are percentage of staking rewards taken by the protocol' }
 ]
 
 const sortData = (data: StakingProtocol[], sortField: string, sortOrder: SortOrder): StakingProtocol[] => {
@@ -81,6 +83,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
               return (
                 <TableHeaderCell key={column.property} className={className} onClick={() => handleSortingChange(column.property)}>
                   {column.label}
+                  {column.info && <Icon icon={InformationCircleIcon} tooltip={column.info} size="sm" color="neutral" />}
                 </TableHeaderCell>
               )
             })
