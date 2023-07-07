@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState } from "react";
 
 import {
@@ -91,7 +92,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
             <TableCell>
-              <Text>{sp.name}</Text>
+              <Link href={`/${sp.name}`}>{sp.name}</Link>
             </TableCell>
             <TableCell>
               <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
