@@ -11,17 +11,19 @@ import {
   TableCell,
   Text
 } from '@tremor/react';
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import { Icon } from "@tremor/react";
 import numeral from 'numeral';
 
 import { StakingProtocol, SortOrder } from './types';
 
 const columns = [
   { label: 'Staking Protocol', property: 'name' },
-  { label: 'TVL', property: 'tvl' },
-  { label: 'Net APY', property: 'netApy' },
+  { label: 'TVL($)', property: 'tvl' },
+  { label: 'Net APY', property: 'netApy', info: 'Sum of staking & rewards APY after fees' },
   { label: 'Staking APY', property: 'stakingApy' },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
-  { label: 'Fees', property: 'fees' }
+  { label: 'Fees', property: 'fees', info: 'Fees are percentage of staking rewards taken by the protocol' }
 ]
 
 const sortData = (data: StakingProtocol[], sortField: string, sortOrder: SortOrder): StakingProtocol[] => {
@@ -82,6 +84,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
               return (
                 <TableHeaderCell key={column.property} className={className} onClick={() => handleSortingChange(column.property)}>
                   {column.label}
+                  {column.info && <Icon icon={InformationCircleIcon} tooltip={column.info} size="sm" color="neutral" />}
                 </TableHeaderCell>
               )
             })
@@ -92,22 +95,23 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
             <TableCell>
-              <Link href={`/${sp.name}`}>{sp.name}</Link>
+              <img src={sp.logoUrl} className="logo" />
+              <Link className="name" href={`/${sp.name}`}>{sp.name}</Link>
             </TableCell>
             <TableCell>
               <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.netApy).format('0.0%')}</Text>
+              <Text>{numeral(sp.netApy).format('0.00')}%</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.stakingApy).format('0.0%')}</Text>
+              <Text>{numeral(sp.stakingApy).format('0.00')}%</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.tokenRewardsApy).format('0.0%')}</Text>
+              <Text>{numeral(sp.tokenRewardsApy).format('0.00')}%</Text>
             </TableCell>
             <TableCell>
-              <Text>{numeral(sp.fees).format('0.00%')}</Text>
+              <Text>{numeral(sp.fees).format('0')}%</Text>
             </TableCell>
           </TableRow>
         ))}
