@@ -1,7 +1,7 @@
 import { Card, Title, Text } from '@tremor/react';
 
 import StakingProtocolsTable from './StakingProtocolsTable';
-import getStakingProtocols from './data/getStakingProtocols';
+import { getStakingProtocols } from './data/dataService';
 
 export default async function IndexPage() {
   const stakingProtocols = await getStakingProtocols();

@@ -15,18 +15,18 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Icon } from "@tremor/react";
 import numeral from 'numeral';
 
-import { StakingProtocol, SortOrder } from './types';
+import { StakingProtocolSummary, SortOrder } from './types';
 
 const columns = [
   { label: 'Staking Protocol', property: 'name' },
   { label: 'TVL($)', property: 'tvl' },
-  { label: 'Net APY', property: 'netApy', info: 'Sum of staking & rewards APY after fees' },
+  { label: 'Net APY', property: 'netApy', info: 'Sum of staking & token rewards APY after fees' },
   { label: 'Staking APY', property: 'stakingApy' },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
   { label: 'Fees', property: 'fees', info: 'Fees are percentage of staking rewards taken by the protocol' }
 ]
 
-const sortData = (data: StakingProtocol[], sortField: string, sortOrder: SortOrder): StakingProtocol[] => {
+const sortData = (data: StakingProtocolSummary[], sortField: string, sortOrder: SortOrder): StakingProtocolSummary[] => {
   if (!sortField || sortOrder === SortOrder.None) {
     return data;
   }
@@ -54,7 +54,7 @@ const sortData = (data: StakingProtocol[], sortField: string, sortOrder: SortOrd
 
 const DEFAULT_SORT_ORDER = SortOrder.Ascending;
 
-export default function StakingProtocolsTable({ stakingProtocols }: { stakingProtocols: StakingProtocol[] }) {
+export default function StakingProtocolsTable({ stakingProtocols }: { stakingProtocols: StakingProtocolSummary[] }) {
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState(SortOrder.None);
   const [stakingProtocolsSorted, setStakingProtocolsSorted] = useState(sortData(stakingProtocols, sortField, sortOrder));
@@ -96,7 +96,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
           <TableRow key={sp.name}>
             <TableCell>
               <img src={sp.logoUrl} className="logo" />
-              <Link className="name" href={`/${sp.name}`}>{sp.name}</Link>
+              <Link className="name" href={`/${sp.defiLlamaPoolId}`}>{sp.name}</Link>
             </TableCell>
             <TableCell>
               <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>

@@ -1,11 +1,13 @@
-import { StakingProtocol } from '../types';
+import { StakingProtocol, StakingProtocolSummary } from '../types';
 
-// protocols that we are interested in
+// protocols that we are interested in and its DefiLlama project name/slug
 const protocolSlugs = ['lido', 'frax-ether', 'rocket-pool', 'coinbase-wrapped-staked-eth', 'stakewise'];
-const protocolMapBySlug = new Map<string, StakingProtocol>();
+const protocolMapBySlug = new Map<string, StakingProtocolSummary>();
 
+// pre-populate the map with supported protocols
 protocolSlugs.forEach((slug: string) => {
-  const stakingProtocol = {
+  const stakingProtocol: StakingProtocolSummary = {
+    id: StakingProtocol.Lido,
     name: '',
     tvl: 0,
     netApy: 0,
@@ -14,8 +16,10 @@ protocolSlugs.forEach((slug: string) => {
     fees: 0,
     logoUrl: ''
   };
+
   switch (slug) {
     case 'lido':
+      stakingProtocol.id = StakingProtocol.Lido;
       stakingProtocol.name = 'Lido';
       stakingProtocol.logoUrl = 'https://icons.llama.fi/lido.png';
 
@@ -24,6 +28,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.fees = 10;
       break;
     case 'frax-ether':
+      stakingProtocol.id = StakingProtocol.FraxEther;
       stakingProtocol.name = 'Frax ETH';
       stakingProtocol.logoUrl = 'https://icons.llama.fi/frax-ether.jpg';
 
@@ -31,6 +36,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.fees = 10;
       break;
     case 'rocket-pool':
+      stakingProtocol.id = StakingProtocol.RocketPool;
       stakingProtocol.name = 'Rocket Pool';
       stakingProtocol.logoUrl = 'https://icons.llama.fi/rocket-pool.jpg';
 
@@ -40,6 +46,7 @@ protocolSlugs.forEach((slug: string) => {
 
       break;
     case 'coinbase-wrapped-staked-eth':
+      stakingProtocol.id = StakingProtocol.Coinbase;
       stakingProtocol.name = 'Coinbase';
       stakingProtocol.logoUrl = 'https://icons.llama.fi/coinbase-wrapped-staked-eth.png';
 
@@ -47,6 +54,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.fees = 25;
       break;
     case 'stakewise':
+      stakingProtocol.id = StakingProtocol.Stakewise;
       stakingProtocol.name = 'Stakewise';
       stakingProtocol.logoUrl = 'https://icons.llama.fi/stakewise.png';
 
@@ -57,7 +65,7 @@ protocolSlugs.forEach((slug: string) => {
   protocolMapBySlug.set(slug, stakingProtocol);
 });
 
-export default async function getStakingProtocols(): Promise<StakingProtocol[]> {
+export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
   console.log('Fetching staking protocols...');
 
   // fetch for over 2MB of data can not be cached
@@ -78,14 +86,44 @@ export default async function getStakingProtocols(): Promise<StakingProtocol[]> 
   }
 
   response.data.forEach((protocol: any) => {
-    if (protocolSlugs.includes(protocol.project)) {
+    if (protocol.chain === 'Ethereum' && protocolSlugs.includes(protocol.project)) {
       const stakingProtocol = protocolMapBySlug.get(protocol.project)!;
       stakingProtocol.tvl = protocol.tvlUsd;
       stakingProtocol.stakingApy = protocol.apyBase;
       stakingProtocol.netApy = protocol.apy;
       stakingProtocol.tokenRewardsApy = protocol.apyReward || 0;
+
+      console.log(protocol.project + ": " + protocol.pool);
+      stakingProtocol.defiLlamaPoolId = protocol.pool;
     }
   });
 
   return Array.from(protocolMapBySlug.values());
+}
+
+export async function getStakingProtocolSummary(poolId: string) {
+  const stakingProtocols = await getStakingProtocols();
+  return stakingProtocols.find((protocol) => protocol.defiLlamaPoolId === poolId);
+}
+
+export async function getTvlAndApyHistory(poolId: string): Promise<any[]> {
+  const endpoint = 'https://yields.llama.fi/chart/' + poolId;
+  console.log('Fetching TVL and APY history using endpoint: ' + endpoint);
+
+  const res = await fetch(endpoint, { cache: 'no-store' });
+
+  // Recommendation: handle errors
+  if (!res.ok) {
+    console.log(res);
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch TVL and APY history data');
+  }
+
+  const response = await res.json();
+
+  if (response.status !== 'success') {
+    throw new Error('Failed to fetch TVL and APY history data for');
+  }
+
+  return response.data;
 }
