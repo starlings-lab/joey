@@ -5,6 +5,7 @@ import TvlAndApyLineChart from "../components/TvlAndApyLineChart";
 import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
 import { getStakingProtocolSummary, getTvlAndApyHistory } from "../data/dataService";
 import ProtocolDetailSection from "../components/ProtocolDetailSection";
+import ApySourcesCard from "../components/ApySourcesCard";
 
 interface PageProps {
   params: {
@@ -32,16 +33,17 @@ export default async ({ params }: PageProps) => {
         <Card className="w-1/5 mr-2">
           <ProtocolDetailSection summary={summary!} />
         </Card>
-        <div className="flex-1">
+        <div className="flex-1 flex-wrap">
           <div className="flex flex-row mb-2">
             <div className="w-1/2">
               <ValueBadgeWithDelta label="TVL" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
             </div>
             <div className="w-1/2">
-              <ValueBadgeWithDelta label="APY" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
+              <ValueBadgeWithDelta label="Net APY" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
             </div>
           </div>
           <TvlAndApyLineChart historyData={history} />
+          <ApySourcesCard className="mt-2" summary={summary!} />
         </div>
       </div>
     </main>

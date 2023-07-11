@@ -1,5 +1,5 @@
-import { StakingProtocol, StakingProtocolDetails, StakingProtocolSummary } from '../types';
-import { getStakingProtocolMapBySlug, getStakingProtocolSlugs } from './staticDataService';
+import { StakingProtocolSummary } from '../types';
+import { getStakingProtocolMapBySlug } from './staticDataService';
 
 export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
   console.log('Fetching staking protocols...');
@@ -11,7 +11,6 @@ export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
 
   // Recommendation: handle errors
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data')
   }
 
