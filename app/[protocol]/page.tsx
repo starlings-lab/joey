@@ -1,4 +1,4 @@
-import { Card, Title } from "@tremor/react";
+import { Title } from "@tremor/react";
 import TvlAndApyLineChart from "../components/TvlAndApyLineChart";
 import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
 import { getStakingProtocolSummary, getTvlAndApyHistory } from "../data/dataService";
@@ -11,12 +11,15 @@ interface PageProps {
 }
 
 export default async ({ params }: PageProps) => {
-  const summary = await getStakingProtocolSummary(params.protocol)!;
-  const data = await getTvlAndApyHistory(params.protocol);
+  // Wait for the promises to resolve
+  const [summary, history] = await Promise.all([
+    getStakingProtocolSummary(params.protocol),
+    getTvlAndApyHistory(params.protocol)
+  ]);
 
   // calculate monthly delta
-  const currentDataPoint = data[data.length - 1];
-  const prevDataPoint = data[data.length - 31];
+  const currentDataPoint = history[history.length - 1];
+  const prevDataPoint = history[history.length - 31];
   const tvlMonthlyPercentChange = ((currentDataPoint.tvlUsd - prevDataPoint.tvlUsd) * 100) / prevDataPoint.tvlUsd;
   const apyMonthlyPercentChange = ((currentDataPoint.apy - prevDataPoint.apy) * 100) / prevDataPoint.apy;
 
@@ -32,7 +35,7 @@ export default async ({ params }: PageProps) => {
         </div>
       </div>
 
-      <TvlAndApyLineChart historyData={data} />
+      <TvlAndApyLineChart historyData={history} />
     </div>
   );
 };
