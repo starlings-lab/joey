@@ -3,9 +3,11 @@
 import { Card, Title, LineChart } from "@tremor/react";
 
 import { TvlAndApyDataPoint } from "../types";
+import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
 import numeral from "numeral";
 
-const dataFormatter = (number: number) => `${numeral(number).format('($0.00a)')}`;
+const tvlFormatter = (number: number) => `${numeral(number).format('($0.00a)')}`;
+const apyFormatter = (number: number) => `${numeral(number).format('0.00')}%`;
 type DataByMonth = {
   [key: string]: any;
 };
@@ -42,16 +44,31 @@ export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAn
   });
 
   return (
-    <Card>
-      <Title>TVL and APY</Title>
-      <LineChart
-        className="mt-6"
-        data={chartdata}
-        index="monthYear"
-        categories={["TVL"]}
-        colors={["emerald", "blue"]}
-        valueFormatter={dataFormatter}
-      />
-    </Card>
+    <div className="flex flex-row pr-2">
+      <Card className="w-1/2">
+        <Title>TVL</Title>
+        <LineChart
+          className="mt-6"
+          data={chartdata}
+          index="monthYear"
+          categories={["TVL"]}
+          colors={["emerald"]}
+          valueFormatter={tvlFormatter}
+          showLegend={false}
+        />
+      </Card>
+      <Card className="w-1/2 ml-2">
+        <Title>APY</Title>
+        <LineChart
+          className="mt-6"
+          data={chartdata}
+          index="monthYear"
+          categories={["APY"]}
+          colors={["blue"]}
+          valueFormatter={apyFormatter}
+          showLegend={false}
+        />
+      </Card>
+    </div>
   );
 }
