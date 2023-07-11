@@ -18,6 +18,19 @@ export interface StakingProtocolSummary {
   defiLlamaPoolId?: string;
 }
 
+export interface NameAndUrl {
+  name: string;
+  url: string;
+}
+
+export interface StakingProtocolDetails {
+  launchDate: string;
+  auditors: NameAndUrl[];
+  investors: NameAndUrl[];
+  websiteUrl: string;
+  communicationChannels: NameAndUrl[];
+}
+
 export enum SortOrder {
   None,
   Ascending,

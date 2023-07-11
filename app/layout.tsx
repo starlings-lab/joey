@@ -7,14 +7,10 @@ import { Suspense } from 'react';
 export const metadata = {
   title: 'Joey',
   description:
-    'Put your ETH to work.',
+    'Put your ETH to work.'
 };
 
-export default async function RootLayout({
-  children
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
     <html lang="en" className="h-full bg-gray-50">
       <body className="h-full">

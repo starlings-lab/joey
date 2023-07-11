@@ -1,4 +1,4 @@
-import { StakingProtocol, StakingProtocolSummary } from '../types';
+import { StakingProtocol, StakingProtocolDetails, StakingProtocolSummary } from '../types';
 
 // protocols that we are interested in and its DefiLlama project name/slug
 const protocolSlugs = ['lido', 'frax-ether', 'rocket-pool', 'coinbase-wrapped-staked-eth', 'stakewise'];
@@ -55,7 +55,7 @@ protocolSlugs.forEach((slug: string) => {
       break;
     case 'stakewise':
       stakingProtocol.id = StakingProtocol.Stakewise;
-      stakingProtocol.name = 'Stakewise';
+      stakingProtocol.name = 'StakeWise';
       stakingProtocol.logoUrl = 'https://icons.llama.fi/stakewise.png';
 
       // Source: https://docs.stakewise.io/faq#what-is-the-commission-for-staking-in-stakewise-pool

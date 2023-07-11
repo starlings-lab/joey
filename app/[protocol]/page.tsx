@@ -1,8 +1,10 @@
-import { Title } from "@tremor/react";
+import { Card, Title } from "@tremor/react";
+import numeral from "numeral";
+
 import TvlAndApyLineChart from "../components/TvlAndApyLineChart";
 import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
 import { getStakingProtocolSummary, getTvlAndApyHistory } from "../data/dataService";
-import numeral from "numeral";
+import ProtocolDetailSection from "../components/ProtocolDetailSection";
 
 interface PageProps {
   params: {
@@ -24,18 +26,24 @@ export default async ({ params }: PageProps) => {
   const apyMonthlyPercentChange = ((currentDataPoint.apy - prevDataPoint.apy) * 100) / prevDataPoint.apy;
 
   return (
-    <div>
-      <Title className="text-xlg">{summary?.name}</Title>
+    <main className="p-4 md:p-10 mx-auto max-w-8xl">
+      <Title className="text-2xl font-bold mb-2">{summary?.name}</Title>
       <div className="flex flex-row">
-        <div className="w-1/2">
-          <ValueBadgeWithDelta label="TVL" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
-        </div>
-        <div className="w-1/2">
-          <ValueBadgeWithDelta label="APY" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
+        <Card className="w-1/5 mr-2">
+          <ProtocolDetailSection summary={summary!} />
+        </Card>
+        <div className="flex-1">
+          <div className="flex flex-row mb-2">
+            <div className="w-1/2">
+              <ValueBadgeWithDelta label="TVL" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
+            </div>
+            <div className="w-1/2">
+              <ValueBadgeWithDelta label="APY" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
+            </div>
+          </div>
+          <TvlAndApyLineChart historyData={history} />
         </div>
       </div>
-
-      <TvlAndApyLineChart historyData={history} />
-    </div>
+    </main>
   );
 };

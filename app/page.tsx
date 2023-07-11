@@ -7,7 +7,7 @@ export default async function IndexPage() {
   const stakingProtocols = await getStakingProtocols();
 
   return (
-    <main className="p-4 md:p-10 mx-auto max-w-7xl">
+    <main className="p-4 md:p-10 mx-auto max-w-8xl">
       <Title>Put your ETH to work</Title>
       <Text>
         Joey is one-stop platform to analyze and find what to do with your ETH.
