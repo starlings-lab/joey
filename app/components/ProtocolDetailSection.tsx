@@ -9,6 +9,7 @@ import { Divider } from "@tremor/react";
 import { getStakingProtocolDetails } from "../data/staticDataService";
 import React, { ElementType } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 
 // Component to display protocol details
@@ -16,7 +17,7 @@ export default function ProtocolDetailSection({ summary }: { summary: StakingPro
   const details = getStakingProtocolDetails(summary.id);
   return (
     <div>
-      <img src={summary.logoUrl} />
+      <Image width="250" height="250" alt="" src={summary.logoUrl} />
       <Text className="text-lg text-center mt-2">{summary.name}</Text>
       <Divider />
       <Detail>
@@ -76,7 +77,7 @@ function ListOfNameAndLnks(
         {
           list.map((item: NameAndUrl) => {
             return (
-              <Text className="text-lg">
+              <Text key={item.name} className="text-lg">
                 <Link href={item.url} target="_" className="text-blue-500 hover:text-blue-700">
                   {item.name}
                 </Link>

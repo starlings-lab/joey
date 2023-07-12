@@ -190,7 +190,7 @@ protocolRiskDetailsMapById.set(StakingProtocol.Lido, {
 protocolRiskDetailsMapById.set(StakingProtocol.FraxEther, {
   hackedTillDate: false,
   multipleAudits: true,
-  protocolDependencies: [],
+  protocolDependencies: ['Curve', 'Convex'],
   hasSlashingInsurance: false,
   slashingRate: Level.Low,
   liquidity: Level.High

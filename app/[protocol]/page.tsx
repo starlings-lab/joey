@@ -15,7 +15,7 @@ interface PageProps {
   };
 }
 
-export default async ({ params }: PageProps) => {
+export default async function StakingProtocolDetails({ params }: PageProps) {
   // Wait for the promises to resolve
   const [summary, history] = await Promise.all([
     getStakingProtocolSummary(params.protocol),

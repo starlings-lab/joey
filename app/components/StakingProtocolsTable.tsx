@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from "react";
-
+import Image from 'next/image';
 import {
   Table,
   TableHead,
@@ -98,7 +98,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
             <TableCell>
-              <img src={sp.logoUrl} className="logo" />
+              <Image width="35" height="35" alt="" src={sp.logoUrl} className="logo" />
               <Link className="name" href={`/${sp.defiLlamaPoolId}`}>{sp.name}</Link>
             </TableCell>
             <TableCell>
