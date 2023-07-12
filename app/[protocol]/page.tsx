@@ -35,24 +35,22 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
       <div className="mr-2 mb-2 mt-2">
         <Link href="/">Home</Link><span>{' > '}</span><Link href="">{summary?.name}</Link>
       </div>
-      <div className="flex flex-row">
-        <Card className="w-1/5 mr-2" decoration="top">
+      <div className="md:flex">
+        <div className="md:w-1/5 md:mr-4">
+        <Card decoration="top">
           <ProtocolDetailSection summary={summary!} />
         </Card>
-        <div className="flex-1 flex-wrap">
-          <div className="flex flex-row mb-2">
-            <div className="w-1/2">
-              <ValueBadgeWithDelta label="TVL - Current" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
-            </div>
-            <div className="w-1/2">
-              <ValueBadgeWithDelta label="Net APY - Current" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
-            </div>
+        </div>
+        <div className="md:w-4/5">
+          <div className="md:flex md:mb-2">
+            <ValueBadgeWithDelta label="TVL - Current" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
+            <ValueBadgeWithDelta label="Net APY - Current" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
           </div>
           <TvlAndApyLineChart historyData={history} />
-          <Flex justifyContent="start" alignItems="baseline">
-            <ApySourcesCard className="mt-2" summary={summary!} />
-            <RisksCard className="mt-2 ml-2" riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
-          </Flex>
+          <div className="md:flex">
+            <ApySourcesCard className="md:w-1/2 mt-4 mr-4" summary={summary!} />
+            <RisksCard className="md:w-1/2 mt-4" riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
+          </div>
         </div>
       </div>
     </main>
