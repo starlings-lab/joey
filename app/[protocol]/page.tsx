@@ -30,7 +30,7 @@ export default async ({ params }: PageProps) => {
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
-      <Title className="text-2xl font-bold mb-2">{summary?.name}</Title>
+      <Title className="text-lg font-bold mb-2">{summary?.name}</Title>
       <div className="flex flex-row">
         <Card className="w-1/5 mr-2" decoration="top">
           <ProtocolDetailSection summary={summary!} />

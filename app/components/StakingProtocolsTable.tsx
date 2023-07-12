@@ -15,7 +15,7 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Icon } from "@tremor/react";
 import numeral from 'numeral';
 
-import { StakingProtocolSummary, SortOrder } from './types';
+import { StakingProtocolSummary, SortOrder } from '../types';
 
 const columns = [
   { label: 'Staking Protocol', property: 'name' },
@@ -68,12 +68,15 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
     setStakingProtocolsSorted(sortData(stakingProtocols, field, newSortOrder));
   };
 
+  const hasTokenRewardsApy = stakingProtocols.some((sp) => sp.tokenRewardsApy > 0);
+  const columnsToUse = columns.filter((column) => (column.property !== 'tokenRewardsApy' || hasTokenRewardsApy));
+
   return (
     <Table className="protocol-table">
       <TableHead>
         <TableRow>
           {
-            columns.map((column) => {
+            columnsToUse.map((column) => {
               // Set the class name for the sort icon
               // Only single column sorting is supported
               let className = 'default';
@@ -107,9 +110,11 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
             <TableCell>
               <Text>{numeral(sp.stakingApy).format('0.00')}%</Text>
             </TableCell>
-            <TableCell>
-              <Text>{numeral(sp.tokenRewardsApy).format('0.00')}%</Text>
-            </TableCell>
+            {hasTokenRewardsApy &&
+              <TableCell>
+                <Text>{numeral(sp.tokenRewardsApy).format('0.00')}%</Text>
+              </TableCell>
+            }
             <TableCell>
               <Text>{numeral(sp.fees).format('0')}%</Text>
             </TableCell>

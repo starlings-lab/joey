@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
+import { Text, Title } from '@tremor/react';
 
 const navigation = [
   { name: 'Joey', href: '/' }
@@ -34,7 +35,7 @@ export default function Navbar() {
                       )}
                       aria-current={pathname === item.href ? 'page' : undefined}
                     >
-                      {item.name}
+                      <Title className='text-2xl font-bold'>{item.name}</Title>
                     </a>
                   ))}
                 </div>
