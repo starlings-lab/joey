@@ -1,3 +1,4 @@
+import { json } from 'stream/consumers';
 import { StakingProtocolSummary } from '../types';
 import { getStakingProtocolMapBySlug } from './staticDataService';
 
@@ -25,10 +26,12 @@ export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
     if (protocol.chain === 'Ethereum' && protocolMapBySlug.has(protocol.project)) {
       const stakingProtocol = protocolMapBySlug.get(protocol.project)!;
       stakingProtocol.tvl = protocol.tvlUsd;
-      stakingProtocol.stakingApy = protocol.apyBase;
+      stakingProtocol.stakingApy = protocol.apyBase || protocol.apy;
       stakingProtocol.netApy = protocol.apy;
       stakingProtocol.tokenRewardsApy = protocol.apyReward || 0;
       stakingProtocol.defiLlamaPoolId = protocol.pool;
+
+      console.log('Fetched staking protocol: ' + JSON.stringify(stakingProtocol));
     }
   });
 
