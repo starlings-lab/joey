@@ -9,11 +9,13 @@ export default async function IndexPage() {
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
       <Flex flexDirection='col' justifyContent="center" alignItems="center">
-        <Title className='text-3xl justify-self-center'>Put your ETH to work</Title>
+        <Title className='text-3xl justify-self-center'>Maximize your ETH</Title>
         <Text className='text-lg'>
-          Joey is one-stop platform to analyze and find what to do with your ETH.
+          Discover optimal investment opportunities for your Ethereum with Joey.
         </Text>
-        <Text className='text-lg'>We compare various metrics in liquid staking and LSDFi protocols.</Text>
+        <Text className='text-lg'>
+          We deliver concise comparisons across liquid staking and LSDFi protocols.
+        </Text>
       </Flex>
       <Card className="mt-6">
         <StakingProtocolsTable stakingProtocols={stakingProtocols} />
