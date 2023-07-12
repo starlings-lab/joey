@@ -21,9 +21,9 @@ const columns = [
   { label: 'Staking Protocol', property: 'name' },
   { label: 'TVL($)', property: 'tvl' },
   { label: 'Net APY', property: 'netApy', info: 'Sum of staking & token rewards APY after fees' },
-  { label: 'Staking APY', property: 'stakingApy' },
+  { label: 'Staking APY', property: 'stakingApy', info: 'APY from staking rewards after fees' },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
-  { label: 'Fees', property: 'fees', info: 'Fees are percentage of staking rewards taken by the protocol' }
+  { label: 'Fees', property: 'fees', info: 'Percentage of staking rewards taken by the protocol' }
 ]
 
 const sortData = (data: StakingProtocolSummary[], sortField: string, sortOrder: SortOrder): StakingProtocolSummary[] => {
