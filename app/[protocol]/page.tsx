@@ -8,6 +8,7 @@ import ProtocolDetailSection from "../components/ProtocolDetailSection";
 import ApySourcesCard from "../components/ApySourcesCard";
 import RisksCard from "../components/RisksCard";
 import { getStakingProtocolRiskDetails } from "../data/staticDataService";
+import Link from "next/link";
 
 interface PageProps {
   params: {
@@ -31,6 +32,9 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
       <Title className="text-lg font-bold mb-2">{summary?.name}</Title>
+      <div className="mr-2 mb-2 mt-2">
+        <Link href="/">Home</Link><span>{' > '}</span><Link href="">{summary?.name}</Link>
+      </div>
       <div className="flex flex-row">
         <Card className="w-1/5 mr-2" decoration="top">
           <ProtocolDetailSection summary={summary!} />
