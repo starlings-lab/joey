@@ -31,28 +31,34 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
-      <Title className="text-lg font-bold mb-2">{summary?.name}</Title>
-      <div className="mr-2 mb-2 mt-2">
-        <Link href="/">Home</Link><span>{' > '}</span><Link href="">{summary?.name}</Link>
-      </div>
+      <Title className="text-lg mb-4">
+        <Link href="/" className="text-[#5C59E8] hover:text-blue-700">Home</Link>
+        <span>{' > '}</span>
+        <Link href="" className="text-[#5C59E8] hover:text-blue-700">{summary?.name}</Link>
+      </Title>
+
       <div className="flex flex-row">
-        <Card className="w-1/5 mr-2" decoration="top">
+        <Card className="w-1/5 mr-5" decoration="top">
           <ProtocolDetailSection summary={summary!} />
         </Card>
         <div className="flex-1 flex-wrap">
-          <div className="flex flex-row mb-2">
+          <div className="flex flex-row mb-5">
             <div className="w-1/2">
               <ValueBadgeWithDelta label="TVL - Current" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 ml-6">
               <ValueBadgeWithDelta label="Net APY - Current" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
             </div>
           </div>
           <TvlAndApyLineChart historyData={history} />
-          <Flex justifyContent="start" alignItems="baseline">
-            <ApySourcesCard className="mt-2" summary={summary!} />
-            <RisksCard className="mt-2 ml-2" riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
-          </Flex>
+          <div className="flex flex-row">
+            <div className="w-1/2">
+              <ApySourcesCard className="mt-5" summary={summary!} />
+            </div>
+            <div className="w-1/2">
+              <RisksCard className="mt-5 ml-4" riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
+            </div>
+          </div>
         </div>
       </div>
     </main>
