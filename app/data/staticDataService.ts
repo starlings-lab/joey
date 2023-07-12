@@ -179,46 +179,37 @@ protocolDetailsMapById.set(StakingProtocol.Stakewise, {
 // Staking protocol risk details map
 const protocolRiskDetailsMapById = new Map<StakingProtocol, StakingProtocolRiskDetails>();
 protocolRiskDetailsMapById.set(StakingProtocol.Lido, {
-  hackedTillDate: false,
   multipleAudits: true,
   protocolDependencies: [],
-  hasSlashingInsurance: false,
-  slashingRate: Level.Low,
+  hasSlashingInsurance: true,
   liquidity: Level.High
 });
 
 protocolRiskDetailsMapById.set(StakingProtocol.FraxEther, {
-  hackedTillDate: false,
   multipleAudits: true,
   protocolDependencies: ['Curve', 'Convex'],
-  hasSlashingInsurance: false,
-  slashingRate: Level.Low,
-  liquidity: Level.High
+  hasSlashingInsurance: true,
+  liquidity: Level.Medium
 });
 
 protocolRiskDetailsMapById.set(StakingProtocol.RocketPool, {
-  hackedTillDate: false,
   multipleAudits: true,
   protocolDependencies: [],
-  hasSlashingInsurance: false,
-  slashingRate: Level.Low,
-  liquidity: Level.High
+  hasSlashingInsurance: true,
+  liquidity: Level.Medium
 });
 
 protocolRiskDetailsMapById.set(StakingProtocol.Coinbase, {
-  hackedTillDate: false,
-  multipleAudits: true,
+  multipleAudits: false,
   protocolDependencies: [],
   hasSlashingInsurance: false,
-  slashingRate: Level.Low,
-  liquidity: Level.High
+  slashingInsuranceNote: 'Slashing coverage is provided only for Coinase Prime',
+  liquidity: Level.Low
 });
 
 protocolRiskDetailsMapById.set(StakingProtocol.Stakewise, {
-  hackedTillDate: false,
   multipleAudits: true,
   protocolDependencies: [],
-  hasSlashingInsurance: false,
-  slashingRate: Level.Low,
-  liquidity: Level.High
+  hasSlashingInsurance: true,
+  liquidity: Level.Medium
 });

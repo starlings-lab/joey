@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
 import { Text, Title } from '@tremor/react';
 import Image from 'next/image';
-// import joeyImage from './Favicon.ico'
+import Favicon from './Favicon.ico'
 
 const navigation = [
   { name: 'Joey', href: '/' }
@@ -37,7 +37,7 @@ export default function Navbar() {
                       )}
                       aria-current={pathname === item.href ? 'page' : undefined}
                     >
-                      {/* <Image width="35" height="35" src={joeyImage} alt="" /> */}
+                      <Image width="35" height="35" src={Favicon} alt="" />
                       <Title className='text-2xl font-bold ml-1'>{item.name}</Title>
                     </a>
                   ))}

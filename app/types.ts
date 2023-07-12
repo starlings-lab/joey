@@ -51,10 +51,9 @@ export enum Level {
 }
 
 export interface StakingProtocolRiskDetails {
-  hackedTillDate: boolean;
   multipleAudits: boolean;
   protocolDependencies: string[];
   hasSlashingInsurance: boolean;
-  slashingRate: Level;
+  slashingInsuranceNote?: string;
   liquidity: Level;
 }
