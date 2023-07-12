@@ -31,7 +31,7 @@ export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
       stakingProtocol.tokenRewardsApy = protocol.apyReward || 0;
       stakingProtocol.defiLlamaPoolId = protocol.pool;
 
-      console.log('Fetched staking protocol: ' + JSON.stringify(stakingProtocol));
+      // console.log('Fetched staking protocol: ' + JSON.stringify(stakingProtocol));
     }
   });
 
