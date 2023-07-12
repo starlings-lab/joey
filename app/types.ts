@@ -16,6 +16,7 @@ export interface StakingProtocolSummary {
   fees: number;
   logoUrl: string;
   defiLlamaPoolId?: string;
+  depositFee?: number;
 }
 
 export interface NameAndUrl {
@@ -41,4 +42,19 @@ export interface TvlAndApyDataPoint {
   timestamp: Date;
   tvlUsd: number;
   apy: number;
+}
+
+export enum Level {
+  Low,
+  Medium,
+  High
+}
+
+export interface StakingProtocolRiskDetails {
+  hackedTillDate: boolean;
+  multipleAudits: boolean;
+  protocolDependencies: string[];
+  hasSlashingInsurance: boolean;
+  slashingRate: Level;
+  liquidity: Level;
 }

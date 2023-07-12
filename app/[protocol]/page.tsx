@@ -1,4 +1,4 @@
-import { Card, Title } from "@tremor/react";
+import { Card, Flex, Title } from "@tremor/react";
 import numeral from "numeral";
 
 import TvlAndApyLineChart from "../components/TvlAndApyLineChart";
@@ -6,6 +6,8 @@ import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
 import { getStakingProtocolSummary, getTvlAndApyHistory } from "../data/dataService";
 import ProtocolDetailSection from "../components/ProtocolDetailSection";
 import ApySourcesCard from "../components/ApySourcesCard";
+import RisksCard from "../components/RisksCard";
+import { getStakingProtocolRiskDetails } from "../data/staticDataService";
 
 interface PageProps {
   params: {
@@ -30,20 +32,23 @@ export default async ({ params }: PageProps) => {
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
       <Title className="text-2xl font-bold mb-2">{summary?.name}</Title>
       <div className="flex flex-row">
-        <Card className="w-1/5 mr-2">
+        <Card className="w-1/5 mr-2" decoration="top">
           <ProtocolDetailSection summary={summary!} />
         </Card>
         <div className="flex-1 flex-wrap">
           <div className="flex flex-row mb-2">
             <div className="w-1/2">
-              <ValueBadgeWithDelta label="TVL" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
+              <ValueBadgeWithDelta label="TVL - Current" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
             </div>
             <div className="w-1/2">
-              <ValueBadgeWithDelta label="Net APY" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
+              <ValueBadgeWithDelta label="Net APY - Current" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
             </div>
           </div>
           <TvlAndApyLineChart historyData={history} />
-          <ApySourcesCard className="mt-2" summary={summary!} />
+          <Flex justifyContent="start" alignItems="baseline">
+            <ApySourcesCard className="mt-2" summary={summary!} />
+            <RisksCard className="mt-2 ml-2" riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
+          </Flex>
         </div>
       </div>
     </main>

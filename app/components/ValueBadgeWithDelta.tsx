@@ -17,14 +17,19 @@ export default function ValueBadgeWithDelta({ label, formattedValue, monthlyPerc
   }
 
   return (
-    <Card className="max-w-xs">
-      <Flex justifyContent="between" alignItems="center">
-        <Text>{label}</Text>
-        <BadgeDelta deltaType={deltaType} size="xs">
-          {sign}{numeral(Math.abs(monthlyPercentChange)).format('0.00')}%
-        </BadgeDelta>
+    <Card decoration="top" className="max-w-xs">
+      <Flex>
+        <div className="w-1/2 mr-6">
+          <Text>{label}</Text>
+          <Metric className="mt-2">{formattedValue}</Metric>
+        </div>
+        <div className="w-1/2">
+          <Text>Monthly Change</Text>
+          <BadgeDelta className="mt-2" deltaType={deltaType} size="xs">
+            {sign}{numeral(Math.abs(monthlyPercentChange)).format('0.00')}%
+          </BadgeDelta>
+        </div>
       </Flex>
-      <Metric>{formattedValue}</Metric>
     </Card>
   );
 }

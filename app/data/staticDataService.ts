@@ -1,7 +1,15 @@
-import { StakingProtocol, StakingProtocolDetails, StakingProtocolSummary } from "../types";
+import { Level, StakingProtocol, StakingProtocolDetails, StakingProtocolRiskDetails, StakingProtocolSummary } from "../types";
 
 export function getStakingProtocolDetails(protocolId: StakingProtocol): StakingProtocolDetails {
   return protocolDetailsMapById.get(protocolId)!;
+}
+
+export function getStakingProtocolMapBySlug(): ReadonlyMap<string, StakingProtocolSummary> {
+  return protocolMapBySlug;
+}
+
+export function getStakingProtocolRiskDetails(protocolId: StakingProtocol): StakingProtocolRiskDetails {
+  return protocolRiskDetailsMapById.get(protocolId)!;
 }
 
 // protocols that we are interested in and its DefiLlama project name/slug
@@ -47,7 +55,7 @@ protocolSlugs.forEach((slug: string) => {
       // TODO: how do we display 0.05% of deposit fee when ETH is depsoited through protocol?
       // Source: https://twitter.com/Rocket_Pool/status/1506519957986758659
       stakingProtocol.fees = 15;
-
+      stakingProtocol.depositFee = 0.0005;
       break;
     case 'coinbase-wrapped-staked-eth':
       stakingProtocol.id = StakingProtocol.Coinbase;
@@ -68,10 +76,6 @@ protocolSlugs.forEach((slug: string) => {
   }
   protocolMapBySlug.set(slug, stakingProtocol);
 });
-
-export function getStakingProtocolMapBySlug(): ReadonlyMap<string, StakingProtocolSummary> {
-  return protocolMapBySlug;
-}
 
 // Static Data Reference: https://docs.google.com/spreadsheets/d/1SEXcufZL1-hskd3bkX8bZPCiuSHwoJe4o-I3xQFLBV8
 const protocolDetailsMapById = new Map<StakingProtocol, StakingProtocolDetails>();
@@ -170,4 +174,51 @@ protocolDetailsMapById.set(StakingProtocol.Stakewise, {
     { name: 'Discord', url: 'https://discord.gg/8Zf7tKyXeZ' },
     { name: 'Telegram', url: 'https://t.me/stakewise_io' }
   ]
+});
+
+// Staking protocol risk details map
+const protocolRiskDetailsMapById = new Map<StakingProtocol, StakingProtocolRiskDetails>();
+protocolRiskDetailsMapById.set(StakingProtocol.Lido, {
+  hackedTillDate: false,
+  multipleAudits: true,
+  protocolDependencies: [],
+  hasSlashingInsurance: false,
+  slashingRate: Level.Low,
+  liquidity: Level.High
+});
+
+protocolRiskDetailsMapById.set(StakingProtocol.FraxEther, {
+  hackedTillDate: false,
+  multipleAudits: true,
+  protocolDependencies: [],
+  hasSlashingInsurance: false,
+  slashingRate: Level.Low,
+  liquidity: Level.High
+});
+
+protocolRiskDetailsMapById.set(StakingProtocol.RocketPool, {
+  hackedTillDate: false,
+  multipleAudits: true,
+  protocolDependencies: [],
+  hasSlashingInsurance: false,
+  slashingRate: Level.Low,
+  liquidity: Level.High
+});
+
+protocolRiskDetailsMapById.set(StakingProtocol.Coinbase, {
+  hackedTillDate: false,
+  multipleAudits: true,
+  protocolDependencies: [],
+  hasSlashingInsurance: false,
+  slashingRate: Level.Low,
+  liquidity: Level.High
+});
+
+protocolRiskDetailsMapById.set(StakingProtocol.Stakewise, {
+  hackedTillDate: false,
+  multipleAudits: true,
+  protocolDependencies: [],
+  hasSlashingInsurance: false,
+  slashingRate: Level.Low,
+  liquidity: Level.High
 });
