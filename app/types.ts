@@ -17,6 +17,7 @@ export interface StakingProtocolSummary {
   logoUrl: string;
   defiLlamaPoolId?: string;
   depositFee?: number;
+  [key: string]: string | number | undefined;
 }
 
 export interface NameAndUrl {
