@@ -20,11 +20,11 @@ import { StakingProtocolSummary, SortOrder } from '../types';
 
 const columns = [
   { label: 'Staking Protocol', property: 'name' },
-  { label: 'TVL', property: 'tvl' },
-  { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY' },
-  { label: 'Staking APY', property: 'stakingApy', info: 'Staking Rewards - Fees' },
-  { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
-  { label: 'Fees', property: 'fees', info: '% of staking rewards taken by the protocol' }
+  { label: 'TVL', property: 'tvl', format: '($0.00a)' },
+  { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY', format: '0.00', percent: true },
+  { label: 'Staking APY', property: 'stakingApy', info: 'Staking Rewards - Fees', format: '0.00', percent: true },
+  { label: 'Token Rewards APY', property: 'tokenRewardsApy', format: '0.00', percent: true },
+  { label: 'Fees', property: 'fees', info: '% of staking rewards taken by the protocol', format: '0.00', percent: true }
 ]
 
 const sortData = (data: StakingProtocolSummary[], sortField: string, sortOrder: SortOrder): StakingProtocolSummary[] => {
@@ -78,7 +78,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         <TableRow>
           {
             columnsToUse.map((column) => {
-              // Set the image for the sort icon
+              // Set the image name for the sort icon
               // Only single column sorting is supported
               let imageName = 'default';
               if (column.property === sortField) {
@@ -102,29 +102,22 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
       <TableBody>
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
-            <TableCell>
-              <Link className="name" href={`/${sp.defiLlamaPoolId}`}>
-                <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />
-                <Text className="name">{sp.name}</Text>
-              </Link>
-            </TableCell>
-            <TableCell>
-              <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
-            </TableCell>
-            <TableCell>
-              <Text>{numeral(sp.netApy).format('0.00')}%</Text>
-            </TableCell>
-            <TableCell>
-              <Text>{numeral(sp.stakingApy).format('0.00')}%</Text>
-            </TableCell>
-            {hasTokenRewardsApy &&
-              <TableCell>
-                <Text>{numeral(sp.tokenRewardsApy).format('0.00')}%</Text>
-              </TableCell>
+            {
+              columnsToUse.map((column, index) => {
+                const fieldValue = column.format
+                  ? numeral(sp[column.property]).format(column.format)
+                  : sp[column.property];
+
+                return (
+                  <TableCell key={column.property}>
+                    <Link className="w-full" href={`/${sp.defiLlamaPoolId}`}>
+                      {index === 0 && <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />}
+                      <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text>
+                    </Link>
+                  </TableCell>
+                )
+              })
             }
-            <TableCell>
-              <Text>{numeral(sp.fees).format('0')}%</Text>
-            </TableCell>
           </TableRow>
         ))}
       </TableBody>
