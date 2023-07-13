@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Flex, Metric, BadgeDelta, Text, DeltaType } from "@tremor/react";
+import { Card, Metric, BadgeDelta, Text, DeltaType } from "@tremor/react";
 import numeral from "numeral";
 
 export default function ValueBadgeWithDelta({ label, formattedValue, monthlyPercentChange }:
@@ -17,7 +17,7 @@ export default function ValueBadgeWithDelta({ label, formattedValue, monthlyPerc
   }
 
   return (
-    <Card decoration="top" className="md:mr-4">
+    <Card decoration="top" className="md:flex">
       <div className="md:w-1/2">
         <Text>{label}</Text>
         <Metric className="md:mt-2">{formattedValue}</Metric>
