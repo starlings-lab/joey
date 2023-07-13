@@ -27,7 +27,7 @@ export default function RisksCard({ riskDetails, className }: { riskDetails: Sta
 }
 
 export function RiskDetail({ label, up }: { label: string, up: boolean | null }) {
-  const classes = `mb-2 border-none cursor-default text-black ${up == null ? 'bg-gray-400' : up ? 'bg-green-600' : 'bg-red-400'}`;
+  const classes = `mb-2 border-none cursor-default text-black opacity-90 ${up == null ? 'bg-gray-400' : up ? 'bg-[#12BB4F80]' : 'bg-red-400'}`;
   return (
     <Button
       className={classes}
