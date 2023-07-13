@@ -1,10 +1,10 @@
 'use client';
 
-import { Button, Card, Subtitle, Text, Title } from "@tremor/react";
+import { Button, Card, Flex, Icon, Title } from "@tremor/react";
 
 import { Level, StakingProtocolRiskDetails } from "../types";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 
 export default function RisksCard({ riskDetails, className }: { riskDetails: StakingProtocolRiskDetails, className?: string }) {
   const classes = `${className}`;
@@ -15,8 +15,10 @@ export default function RisksCard({ riskDetails, className }: { riskDetails: Sta
       {riskDetails.multipleAudits === false && <RiskDetail label="No Multiple Smart Contract Audits" up={false} />}
 
       {riskDetails.hasSlashingInsurance === true && <RiskDetail label="Slashing Insurance" up={true} />}
-      {riskDetails.hasSlashingInsurance === false && <RiskDetail label="No Slashing Insurance" up={false} />}
-      {riskDetails.slashingInsuranceNote && <Text className="text-xs text-gray-500 mb-2">* {riskDetails.slashingInsuranceNote}</Text>}
+      <Flex justifyContent="start" alignItems="start">
+        {riskDetails.hasSlashingInsurance === false && <RiskDetail label="No Slashing Insurance" up={false} />}
+        {riskDetails.slashingInsuranceNote && <Icon icon={InformationCircleIcon} tooltip={riskDetails.slashingInsuranceNote} size="sm" color="neutral" />}
+      </Flex>
 
       {riskDetails.liquidity === Level.Low && <RiskDetail label="Low Secondary Market Liquidity" up={false} />}
       {riskDetails.liquidity === Level.Medium && <RiskDetail label="Medium Secondary Market Liquidity" up={false} />}
