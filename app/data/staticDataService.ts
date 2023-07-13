@@ -41,7 +41,7 @@ protocolSlugs.forEach((slug: string) => {
       break;
     case 'frax-ether':
       stakingProtocol.id = StakingProtocol.FraxEther;
-      stakingProtocol.name = 'Frax ETH';
+      stakingProtocol.name = 'Frax Ether';
       stakingProtocol.logoUrl = 'frax.svg';
 
       // Source: https://exponential.fi/assets/b8956e66-fe6c-4a88-8e96-530e2e7dea4c
@@ -59,7 +59,7 @@ protocolSlugs.forEach((slug: string) => {
       break;
     case 'coinbase-wrapped-staked-eth':
       stakingProtocol.id = StakingProtocol.Coinbase;
-      stakingProtocol.name = 'Coinbase';
+      stakingProtocol.name = 'Coinbase Ether';
       stakingProtocol.logoUrl = 'coinbase.svg';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
