@@ -17,7 +17,7 @@ export default function ProtocolDetailSection({ summary }: { summary: StakingPro
   const details = getStakingProtocolDetails(summary.id);
   return (
     <div>
-      <Image width="250" height="250" alt="" src={summary.logoUrl} />
+      <Image width="240" height="240" alt="" src={summary.logoUrl} />
       <Text className="text-lg text-center mt-2">{summary.name}</Text>
       <Divider />
       <Detail>

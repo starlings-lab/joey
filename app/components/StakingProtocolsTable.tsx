@@ -99,7 +99,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
           <TableRow key={sp.name}>
             <Link className="name" href={`/${sp.defiLlamaPoolId}`}>
             <TableCell>
-              <Image width="35" height="35" alt="" src={sp.logoUrl} className="logo" />
+              <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />
               <Text className="name">{sp.name}</Text>
             </TableCell>
             </Link>

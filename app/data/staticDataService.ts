@@ -33,7 +33,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'lido':
       stakingProtocol.id = StakingProtocol.Lido;
       stakingProtocol.name = 'Lido';
-      stakingProtocol.logoUrl = 'https://icons.llama.fi/lido.png';
+      stakingProtocol.logoUrl = 'lido.svg';
 
       // Lido takes 10% fee on users staking rewards
       // Source: https://docs.lido.fi/#protocol-fee
@@ -42,7 +42,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'frax-ether':
       stakingProtocol.id = StakingProtocol.FraxEther;
       stakingProtocol.name = 'Frax ETH';
-      stakingProtocol.logoUrl = 'https://icons.llama.fi/frax-ether.jpg';
+      stakingProtocol.logoUrl = 'frax.svg';
 
       // Source: https://exponential.fi/assets/b8956e66-fe6c-4a88-8e96-530e2e7dea4c
       stakingProtocol.fees = 10;
@@ -50,7 +50,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'rocket-pool':
       stakingProtocol.id = StakingProtocol.RocketPool;
       stakingProtocol.name = 'Rocket Pool';
-      stakingProtocol.logoUrl = 'https://icons.llama.fi/rocket-pool.jpg';
+      stakingProtocol.logoUrl = 'rocketpool.svg';
 
       // TODO: how do we display 0.05% of deposit fee when ETH is depsoited through protocol?
       // Source: https://twitter.com/Rocket_Pool/status/1506519957986758659
@@ -60,7 +60,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'coinbase-wrapped-staked-eth':
       stakingProtocol.id = StakingProtocol.Coinbase;
       stakingProtocol.name = 'Coinbase';
-      stakingProtocol.logoUrl = 'https://icons.llama.fi/coinbase-wrapped-staked-eth.png';
+      stakingProtocol.logoUrl = 'coinbase.svg';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
       stakingProtocol.fees = 25;
@@ -68,7 +68,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'stakewise':
       stakingProtocol.id = StakingProtocol.Stakewise;
       stakingProtocol.name = 'StakeWise';
-      stakingProtocol.logoUrl = 'https://icons.llama.fi/stakewise.png';
+      stakingProtocol.logoUrl = 'stakewise.svg';
 
       // Source: https://docs.stakewise.io/faq#what-is-the-commission-for-staking-in-stakewise-pool
       stakingProtocol.fees = 10;
