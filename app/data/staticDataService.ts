@@ -209,5 +209,5 @@ protocolRiskDetailsMapById.set(StakingProtocol.Stakewise, {
   multipleAudits: true,
   protocolDependencies: [],
   hasSlashingInsurance: true,
-  liquidity: Level.Medium
+  liquidity: Level.Low
 });
