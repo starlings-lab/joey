@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, Text } from "@tremor/react";
-import { RocketLaunchIcon, LockClosedIcon, ComputerDesktopIcon, UserGroupIcon } from "@heroicons/react/24/solid";
+import { RocketLaunchIcon, BugAntIcon, GlobeAltIcon, UserGroupIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import { Icon } from "@tremor/react";
 
 import { NameAndUrl, StakingProtocolSummary } from "../types";
@@ -27,10 +27,10 @@ export default function ProtocolDetailSection({ summary }: { summary: StakingPro
           <Text className="text-lg">{details.launchDate}</Text>
         </div>
       </Detail>
-      <ListOfNameAndLnks icon={LockClosedIcon} label="Auditors" list={details.auditors} />
-      <ListOfNameAndLnks icon={LockClosedIcon} label="Investors" list={details.investors} />
+      <ListOfNameAndLnks icon={BugAntIcon} label="Auditors" list={details.auditors} />
+      <ListOfNameAndLnks icon={UserGroupIcon} label="Investors" list={details.investors} />
       <Detail>
-        <RoundIcon icon={ComputerDesktopIcon} />
+        <RoundIcon icon={GlobeAltIcon} />
         <div className="ml-2">
           <Text className="text-xlg">Website</Text>
           <Text className="text-lg">
@@ -40,7 +40,7 @@ export default function ProtocolDetailSection({ summary }: { summary: StakingPro
           </Text>
         </div>
       </Detail>
-      <ListOfNameAndLnks icon={UserGroupIcon} label="Community" list={details.communicationChannels} />
+      <ListOfNameAndLnks icon={ChatBubbleLeftRightIcon} label="Community" list={details.communicationChannels} />
     </div>
   );
 }
