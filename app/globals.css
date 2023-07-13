@@ -20,5 +20,5 @@ body {
 
 .protocol-table tbody tr:hover,
 .protocol-table tbody tr:focus {
-  @apply bg-stone-200;
+  @apply bg-stone-100;
 }
