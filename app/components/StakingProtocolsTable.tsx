@@ -78,17 +78,18 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         <TableRow>
           {
             columnsToUse.map((column) => {
-              // Set the class name for the sort icon
+              // Set the image for the sort icon
               // Only single column sorting is supported
-              let className = 'default';
+              let imageName = 'default';
               if (column.property === sortField) {
-                sortOrder === SortOrder.Ascending ? className = 'up' : className = 'down';
+                sortOrder === SortOrder.Ascending ? imageName = 'up_arrow' : imageName = 'down_arrow';
               }
 
               return (
-                <TableHeaderCell key={column.property} className={className} onClick={() => handleSortingChange(column.property)}>
-                  <Flex className='justify-start'>
+                <TableHeaderCell key={column.property} onClick={() => handleSortingChange(column.property)}>
+                  <Flex className='justify-start cursor-pointer'>
                     <Text>{column.label}</Text>
+                    <Image className="ml-1" alt="" width="16" height="16" src={`/${imageName}.png`} />
                     {column.info && <Icon icon={InformationCircleIcon} tooltip={column.info} size="sm" color="neutral" />}
                   </Flex>
 

@@ -6,26 +6,6 @@ body {
   background: linear-gradient(0deg, rgba(254, 205, 211, 0.08), rgba(254, 205, 211, 0.08)), linear-gradient(0deg, #FFFFFF, #FFFFFF);
 }
 
-.protocol-table th.up,
-.protocol-table th.default,
-.protocol-table th.down {
-  cursor: pointer;
-  background-repeat: no-repeat;
-  background-position: center right;
-}
-
-.protocol-table th.up {
-  background-image: url("./assets/up_arrow.png");
-}
-
-.protocol-table th.down {
-  background-image: url("./assets/down_arrow.png");
-}
-
-.protocol-table th.default {
-  background-image: url("./assets/default.png");
-}
-
 .protocol-table tr .logo {
   width: 35px;
   height: 35px;
