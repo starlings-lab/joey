@@ -2,12 +2,13 @@
 
 import { usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
-import { Text, Title } from '@tremor/react';
+import { Title } from '@tremor/react';
 import Image from 'next/image';
-import Favicon from './Favicon.ico'
+import Link from 'next/link';
+import Joey from './assets/joey.svg'
 
 const navigation = [
-  { name: 'Joey', href: '/' }
+  { name: '', href: '/' }
 ];
 
 function classNames(...classes: string[]) {
@@ -21,10 +22,9 @@ export default function Navbar() {
     <Disclosure as="nav" className="bg-white shadow-sm">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-8xl px-4 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
-                <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                   {navigation.map((item) => (
                     <a
                       key={item.name}
@@ -37,11 +37,13 @@ export default function Navbar() {
                       )}
                       aria-current={pathname === item.href ? 'page' : undefined}
                     >
-                      <Image width="35" height="35" src={Favicon} alt="" />
+                      <Image width="32" height="32" src={Joey} alt="" />
                       <Title className='text-2xl font-bold ml-1'>{item.name}</Title>
                     </a>
                   ))}
-                </div>
+              </div>
+              <div className="mt-auto mb-auto">
+                <button className="bg-pink-600 hover:bg-pink-400 text-white py-2 px-4 rounded"><Link href="https://discord.gg/zzQkhCuykf"></Link>Talk to Us!</button>
               </div>
             </div>
           </div>
