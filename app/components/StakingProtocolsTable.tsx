@@ -23,7 +23,7 @@ const columns = [
   { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY' },
   { label: 'Staking APY', property: 'stakingApy', info: 'Staking Rewards - Fees' },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
-  { label: 'Fees', property: 'fees', info: 'Percentage of staking rewards taken by the protocol' }
+  { label: 'Fees', property: 'fees', info: '% of staking rewards taken by the protocol' }
 ]
 
 const sortData = (data: StakingProtocolSummary[], sortField: string, sortOrder: SortOrder): StakingProtocolSummary[] => {
@@ -98,10 +98,10 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
             <TableCell>
-            <Link className="name" href={`/${sp.defiLlamaPoolId}`}>
-              <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />
-              <Text className="name">{sp.name}</Text>
-            </Link>
+              <Link className="name" href={`/${sp.defiLlamaPoolId}`}>
+                <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />
+                <Text className="name">{sp.name}</Text>
+              </Link>
             </TableCell>
             <TableCell>
               <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
