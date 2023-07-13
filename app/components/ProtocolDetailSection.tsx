@@ -35,7 +35,7 @@ export default function ProtocolDetailSection({ summary }: { summary: StakingPro
         <div className="ml-2">
           <Text className="text-xlg">Website</Text>
           <Text className="text-lg">
-            <Link href={details.websiteUrl} target="_" className="text-blue-500 hover:text-blue-700">
+            <Link href={details.websiteUrl} target="_" className="underline hover:text-blue-700">
               {details.websiteUrl}
             </Link>
           </Text>
@@ -79,7 +79,7 @@ function ListOfNameAndLnks(
           list.map((item: NameAndUrl) => {
             return (
               <Text key={item.name} className="text-lg">
-                <Link href={item.url} target="_" className="flex justify-start text-blue-500 hover:text-blue-700">
+                <Link href={item.url} target="_" className="flex justify-start underline hover:text-blue-700">
                   {label === "Community" ? <Image className="mr-1" alt="icon" width="16" height="16" src={`/${item.name}.svg`}/> : null}{item.name}
                 </Link>
               </Text>
