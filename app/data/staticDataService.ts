@@ -150,9 +150,7 @@ protocolDetailsMapById.set(StakingProtocol.Coinbase, {
   ],
   websiteUrl: 'https://www.coinbase.com/earn/staking/ethereum',
   communicationChannels: [
-    { name: 'Twitter', url: 'https://twitter.com/coinbase' },
-    { name: 'Blog', url: 'https://www.coinbase.com/blog' },
-    { name: 'Facebook', url: 'https://www.facebook.com/Coinbase' }
+    { name: 'Twitter', url: 'https://twitter.com/coinbase' }
   ]
 });
 

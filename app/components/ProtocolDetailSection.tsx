@@ -79,8 +79,8 @@ function ListOfNameAndLnks(
           list.map((item: NameAndUrl) => {
             return (
               <Text key={item.name} className="text-lg">
-                <Link href={item.url} target="_" className="text-blue-500 hover:text-blue-700">
-                  {item.name}
+                <Link href={item.url} target="_" className="flex justify-start text-blue-500 hover:text-blue-700">
+                  {label === "Community" ? <Image className="mr-1" alt="icon" width="16" height="16" src={`/${item.name}.svg`}/> : null}{item.name}
                 </Link>
               </Text>
             );
