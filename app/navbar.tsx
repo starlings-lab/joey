@@ -43,7 +43,7 @@ export default function Navbar() {
                   ))}
               </div>
               <div className="mt-auto mb-auto">
-                <button className="bg-pink-600 hover:bg-pink-400 text-white py-2 px-4 rounded"><Link target="_blank" href="https://discord.gg/zzQkhCuykf">Talk to Us!</Link></button>
+                <button className="bg-pink-600 hover:bg-pink-400 text-white py-2 px-4 rounded"><Link target="_blank" href="https://t.me/+WN0vHN-RU2g1ZTkx">Talk to Us!</Link></button>
               </div>
             </div>
           </div>
