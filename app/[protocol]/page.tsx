@@ -9,6 +9,7 @@ import ApySourcesCard from "../components/ApySourcesCard";
 import RisksCard from "../components/RisksCard";
 import { getStakingProtocolRiskDetails } from "../data/staticDataService";
 import Link from "next/link";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
 interface PageProps {
   params: {
@@ -32,8 +33,8 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
       <div className="text-3xl font-bold mb-2">{summary?.name}</div>
-      <div className="mr-2 mb-2 mt-2">
-        <Link href="/">Home</Link><span>{' > '}</span><Link href="">{summary?.name}</Link>
+      <div className="flex mr-2 mb-2 mt-2">
+        <Link className="text-[#5C59E8]" href="/">Home</Link><span><ChevronDoubleRightIcon width="16" className="text-gray m-1"></ChevronDoubleRightIcon></span><Link className="text-[#5C59E8]" href="">{summary?.name}</Link>
       </div>
       <div className="md:flex">
         <div className="mt-4 md:w-1/5 md:mr-5">
