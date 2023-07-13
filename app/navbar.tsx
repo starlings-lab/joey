@@ -37,7 +37,7 @@ export default function Navbar() {
                       )}
                       aria-current={pathname === item.href ? 'page' : undefined}
                     >
-                      <Image width="32" height="32" src={Joey} alt="" />
+                      <Image width="48" height="48" src={Joey} alt="" />
                       <Title className='text-2xl font-bold ml-1'>{item.name}</Title>
                     </a>
                   ))}
