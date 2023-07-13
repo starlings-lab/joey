@@ -9,7 +9,8 @@ import {
   TableHeaderCell,
   TableBody,
   TableCell,
-  Text
+  Text,
+  Flex
 } from '@tremor/react';
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Icon } from "@tremor/react";
@@ -86,8 +87,11 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
 
               return (
                 <TableHeaderCell key={column.property} className={className} onClick={() => handleSortingChange(column.property)}>
-                  {column.label}
-                  {column.info && <Icon icon={InformationCircleIcon} tooltip={column.info} size="sm" color="neutral" />}
+                  <Flex className='justify-start'>
+                    <Text>{column.label}</Text>
+                    {column.info && <Icon icon={InformationCircleIcon} tooltip={column.info} size="sm" color="neutral" />}
+                  </Flex>
+
                 </TableHeaderCell>
               )
             })
