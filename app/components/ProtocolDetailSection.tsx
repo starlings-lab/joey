@@ -53,7 +53,7 @@ interface ChildrenProps {
 function RoundIcon({ icon }: { icon: ElementType<any> }) {
   return (
     <div className="rounded-full bg-gray-200 w-12 h-12 flex items-center justify-center">
-      <Icon size="lg" icon={icon} />
+      <Icon className="text-gray-400" size="lg" icon={icon} />
     </div>
   );
 }
