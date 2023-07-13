@@ -16,7 +16,7 @@ export default function RisksCard({ riskDetails, className }: { riskDetails: Sta
 
       {riskDetails.hasSlashingInsurance === true && <RiskDetail label="Slashing Insurance" up={true} />}
       {riskDetails.hasSlashingInsurance === false && <RiskDetail label="No Slashing Insurance" up={false} />}
-      {riskDetails.slashingInsuranceNote && <Text className="text-xs text-gray-500">* {riskDetails.slashingInsuranceNote}</Text>}
+      {riskDetails.slashingInsuranceNote && <Text className="text-xs text-gray-500 mb-2">* {riskDetails.slashingInsuranceNote}</Text>}
 
       {riskDetails.liquidity === Level.Low && <RiskDetail label="Low Secondary Market Liquidity" up={false} />}
       {riskDetails.liquidity === Level.Medium && <RiskDetail label="Medium Secondary Market Liquidity" up={false} />}
