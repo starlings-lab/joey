@@ -97,12 +97,12 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
       <TableBody>
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
-            <Link className="name" href={`/${sp.defiLlamaPoolId}`}>
             <TableCell>
+            <Link className="name" href={`/${sp.defiLlamaPoolId}`}>
               <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />
               <Text className="name">{sp.name}</Text>
-            </TableCell>
             </Link>
+            </TableCell>
             <TableCell>
               <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
             </TableCell>
