@@ -203,7 +203,7 @@ protocolRiskDetailsMapById.set(StakingProtocol.Coinbase, {
   multipleAudits: false,
   protocolDependencies: [],
   hasSlashingInsurance: false,
-  slashingInsuranceNote: 'Slashing coverage is provided only for Coinase Prime',
+  slashingInsuranceNote: 'Slashing coverage is provided only for Coinbase Prime',
   liquidity: Level.Low
 });
 
