@@ -3,6 +3,7 @@
 import { Card, Title, LineChart } from "@tremor/react";
 
 import { TvlAndApyDataPoint } from "../types";
+import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
 import numeral from "numeral";
 
 const tvlFormatter = (number: number) => `${numeral(number).format('($0.00a)')}`;
@@ -43,11 +44,11 @@ export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAn
   });
 
   return (
-    <div className="flex flex-row">
-      <Card className="w-1/2 mr-6">
+    <div className="md:flex">
+      <Card className="md:w-1/2">
         <Title>TVL - Monthly Average</Title>
         <LineChart
-          className="mt-5"
+          className="md:mt-6"
           data={chartdata}
           index="monthYear"
           categories={["TVL"]}
@@ -56,10 +57,10 @@ export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAn
           showLegend={false}
         />
       </Card>
-      <Card className="w-1/2">
+      <Card className="md:w-1/2 md:ml-2">
         <Title>Net APY - Monthly Average</Title>
         <LineChart
-          className="mt-5"
+          className="md:mt-6"
           data={chartdata}
           index="monthYear"
           categories={["APY"]}
