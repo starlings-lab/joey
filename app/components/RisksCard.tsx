@@ -7,7 +7,7 @@ import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 export default function RisksCard({ riskDetails, className }: { riskDetails: StakingProtocolRiskDetails, className?: string }) {
-  const classes = `max-w-xs ${className}`;
+  const classes = `${className}`;
   return (
     <Card decoration="top" decorationColor="red" className={classes}>
       <Title className="text-2xl font-bold mb-2">Risks</Title>

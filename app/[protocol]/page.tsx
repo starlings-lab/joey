@@ -52,8 +52,12 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
           </div>
           <TvlAndApyLineChart historyData={history} />
           <div className="md:flex">
-            <ApySourcesCard className="md:w-1/2 mt-4 mr-4" summary={summary!} />
-            <RisksCard className="md:w-1/2 mt-4" riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
+            <div className="md:w-1/2 mt-5 md:mr-5">
+              <ApySourcesCard summary={summary!} />
+            </div>
+            <div className="md:w-1/2 mt-5">
+              <RisksCard riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
+            </div>
           </div>
         </div>
       </div>
