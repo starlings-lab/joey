@@ -20,8 +20,8 @@ import { StakingProtocolSummary, SortOrder } from '../types';
 const columns = [
   { label: 'Staking Protocol', property: 'name' },
   { label: 'TVL($)', property: 'tvl' },
-  { label: 'Net APY', property: 'netApy', info: 'Sum of staking & token rewards APY after fees' },
-  { label: 'Staking APY', property: 'stakingApy', info: 'APY from staking rewards after fees' },
+  { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY' },
+  { label: 'Staking APY', property: 'stakingApy', info: 'Staking Rewards - Fees' },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy' },
   { label: 'Fees', property: 'fees', info: 'Percentage of staking rewards taken by the protocol' }
 ]
@@ -98,10 +98,10 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         {stakingProtocolsSorted.map((sp) => (
           <TableRow key={sp.name}>
             <Link className="name" href={`/${sp.defiLlamaPoolId}`}>
-            <TableCell>
-              <Image width="35" height="35" alt="" src={sp.logoUrl} className="logo" />
-              <Text className="name">{sp.name}</Text>
-            </TableCell>
+              <TableCell>
+                <Image width="35" height="35" alt="" src={sp.logoUrl} className="logo" />
+                <Text className="name">{sp.name}</Text>
+              </TableCell>
             </Link>
             <TableCell>
               <Text>{numeral(sp.tvl).format('($0.00a)')}</Text>
