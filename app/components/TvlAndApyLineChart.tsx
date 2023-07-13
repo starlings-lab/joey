@@ -45,7 +45,7 @@ export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAn
 
   return (
     <div className="md:flex">
-      <Card className="md:w-1/2 md:mr-5">
+      <Card className="mt-4 md:w-1/2 md:mr-5">
         <Title>TVL - Monthly Average</Title>
         <LineChart
           className="md:mt-4"
@@ -57,7 +57,7 @@ export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAn
           showLegend={false}
         />
       </Card>
-      <Card className="md:w-1/2">
+      <Card className="mt-4 md:w-1/2">
         <Title>Net APY - Monthly Average</Title>
         <LineChart
           className="md:mt-6"

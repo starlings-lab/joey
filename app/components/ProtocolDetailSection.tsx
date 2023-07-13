@@ -17,8 +17,9 @@ export default function ProtocolDetailSection({ summary }: { summary: StakingPro
   const details = getStakingProtocolDetails(summary.id);
   return (
     <div>
-      <Image width="240" height="240" alt="" src={summary.logoUrl} />
-      <Text className="text-lg text-center mt-2">{summary.name}</Text>
+      <div className="flex items-center justify-center">
+        <Image width="240" height="240" alt="" src={summary.logoUrl} />
+      </div>
       <Divider />
       <Detail>
         <RoundIcon icon={RocketLaunchIcon} />

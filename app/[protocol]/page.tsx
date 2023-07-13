@@ -31,22 +31,22 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
-      <Title className="text-lg font-bold mb-2">{summary?.name}</Title>
+      <div className="text-3xl font-bold mb-2">{summary?.name}</div>
       <div className="mr-2 mb-2 mt-2">
         <Link href="/">Home</Link><span>{' > '}</span><Link href="">{summary?.name}</Link>
       </div>
       <div className="md:flex">
-        <div className="md:w-1/5 md:mr-5">
+        <div className="mt-4 md:w-1/5 md:mr-5">
           <Card decoration="top">
             <ProtocolDetailSection summary={summary!} />
           </Card>
         </div>
         <div className="md:w-4/5">
-          <div className="md:flex md:mb-5">
-            <div className="md:w-1/2 md:mr-5">
+          <div className="md:flex">
+            <div className="mt-4 md:w-1/2 md:mr-5">
               <ValueBadgeWithDelta label="TVL - Current" formattedValue={numeral(summary?.tvl || 0).format('($0.00a)')} monthlyPercentChange={tvlMonthlyPercentChange} />
             </div>
-            <div className="md:w-1/2">
+            <div className="mt-4 md:w-1/2">
               <ValueBadgeWithDelta label="Net APY - Current" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
             </div>
           </div>
