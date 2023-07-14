@@ -43,7 +43,7 @@ export default function Navbar() {
                   ))}
               </div>
               <div className="mt-auto mb-auto">
-                <button className="bg-pink-600 hover:bg-pink-400 text-white py-2 px-4 rounded"><Link target="_blank" href="https://t.me/+WN0vHN-RU2g1ZTkx">Talk to Us!</Link></button>
+                <Link target="_blank" href="https://t.me/+WN0vHN-RU2g1ZTkx"><Image className="mr-1 hover:opacity-80" alt="icon" width="32" height="32" src={`/Telegram.svg`} /></Link>
               </div>
             </div>
           </div>
