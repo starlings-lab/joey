@@ -110,7 +110,7 @@ protocolDetailsMapById.set(StakingProtocol.FraxEther, {
     { name: 'Electric Capital', url: 'https://www.electriccapital.com/' },
     { name: 'Dragonfly', url: 'https://www.dragonfly.xyz/' }
   ],
-  websiteUrl: 'https://frax.finance/',
+  websiteUrl: 'https://app.frax.finance/frxeth/stake',
   communicationChannels: [
     { name: 'Twitter', url: 'https://twitter.com/fraxfinance' },
     { name: 'Discord', url: 'https://discord.gg/UJVtDTFRaA' },
