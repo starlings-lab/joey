@@ -5,19 +5,34 @@ export enum StakingProtocol {
   Coinbase,
   Stakewise
 }
+export enum LSDFiStrategy {
+  OETH,
+  UNSHETH,
+  Lybra,
+  SommelierRealYieldETH,
+  AlchemixLidoETH
+}
 
-export interface StakingProtocolSummary {
-  id: StakingProtocol;
+export interface ProtocolSummary {
   name: string;
   tvl: number;
   netApy: number;
   stakingApy: number;
   tokenRewardsApy: number;
   fees: number;
+  [key: string]: string | number | undefined | string[];
+}
+
+export interface StakingProtocolSummary extends ProtocolSummary {
+  id: StakingProtocol;
   logoUrl: string;
   defiLlamaPoolId?: string;
   depositFee?: number;
-  [key: string]: string | number | undefined;
+}
+
+export interface LSDFiStrategySummary extends ProtocolSummary {
+  id: LSDFiStrategy;
+  categories: string[];
 }
 
 export interface NameAndUrl {

@@ -2,9 +2,16 @@ import { Card, Title, Text, Flex } from '@tremor/react';
 
 import StakingProtocolsTable from './components/StakingProtocolsTable';
 import { getStakingProtocols } from './data/dataService';
+import { headers } from "next/headers";
 
 export default async function IndexPage() {
   const stakingProtocols = await getStakingProtocols();
+
+  // fetch LSDFi strategies
+  const host = headers().get("host");
+  const endpoint = `http://${host}/api/lsdfi`;
+  console.log("Fetching LSDFi strategies from: " + endpoint);
+  const lsdfiStrategies = await fetch(endpoint);
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
