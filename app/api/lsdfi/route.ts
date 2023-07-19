@@ -14,7 +14,7 @@ export async function GET() {
       stakingApy: 0,
       tokenRewardsApy: 0,
       fees: 0,
-      categories: ["LP", "Index"]
+      features: ["LP", "Index"]
     },
   ];
 

@@ -32,7 +32,7 @@ export interface StakingProtocolSummary extends ProtocolSummary {
 
 export interface LSDFiStrategySummary extends ProtocolSummary {
   id: LSDFiStrategy;
-  categories: string[];
+  features: string[];
 }
 
 export interface NameAndUrl {
