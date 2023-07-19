@@ -2,51 +2,14 @@ import { Card, Text, Flex } from '@tremor/react';
 
 import LSDFiTable from './components/LSDFiTable';
 import StakingProtocolsTable from './components/StakingProtocolsTable';
-import { getStakingProtocols } from './data/dataService';
-import { LSDFiStrategy } from './types';
-import { headers } from "next/headers";
+import { getLSDFiStrategies, getStakingProtocols } from './data/dataService';
+import { LSDFiStrategy, StakingProtocolSummary } from './types';
 
 export default async function IndexPage() {
-  const stakingProtocols = await getStakingProtocols();
+  const stakingProtocols: StakingProtocolSummary[] = await getStakingProtocols();
 
   // fetch LSDFi strategies
-  const host = headers().get("host");
-  const endpoint = `http://${host}/api/lsdfi`;
-  console.log("Fetching LSDFi strategies from: " + endpoint);
-  const lsdfiStrategies = await fetch(endpoint);
-  const lsdFiStrategies = 
-  [
-    {
-      id: LSDFiStrategy.OETH,
-      name: "OETH",
-      tvl: 12,
-      netApy: 6,
-      stakingApy: 0,
-      tokenRewardsApy: 0,
-      fees: 10,
-      features: ["LPing", "Index"]
-    },
-    {
-      id: LSDFiStrategy.AlchemixLidoETH,
-      name: "Alchemix Lido wstETH",
-      tvl: 42,
-      netApy: 5,
-      stakingApy: 0,
-      tokenRewardsApy: 0,
-      fees: 8,
-      features: ["Self-Repaying Loan"]
-    },
-    {
-      id: LSDFiStrategy.SommelierRealYieldETH,
-      name: "Sommelier Real Yield ETH",
-      tvl: 55,
-      netApy: 6,
-      stakingApy: 0,
-      tokenRewardsApy: 0,
-      fees: 5,
-      features: ["Leverage", "LPing"]
-    },
-  ];
+  const lsdFiStrategies = await getLSDFiStrategies();
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">

@@ -19,9 +19,9 @@ import numeral from 'numeral';
 import { LSDFiStrategySummary, SortOrder } from '../types';
 
 const columns = [
-    { label: 'Strategy', property: 'name' },
-    { label: 'Features', property: 'features' },
-    { label: 'TVL', property: 'tvl', format: '($0.00a)' },
+  { label: 'Strategy', property: 'name' },
+  { label: 'Features', property: 'features' },
+  { label: 'TVL', property: 'tvl', format: '($0.00a)' },
   { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY', format: '0.00', percent: true },
   { label: 'Staking APY', property: 'stakingApy', info: 'Staking Rewards - Fees', format: '0.00', percent: true },
   { label: 'Token Rewards APY', property: 'tokenRewardsApy', format: '0.00', percent: true },

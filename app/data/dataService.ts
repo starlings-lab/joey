@@ -1,6 +1,7 @@
-import { json } from 'stream/consumers';
-import { StakingProtocolSummary } from '../types';
-import { getStakingProtocolMapBySlug } from './staticDataService';
+import { LSDFiStrategySummary, StakingProtocolSummary } from '../types';
+import { getLsdFiTvlAndApy } from './duneDataService';
+import { getLSDFiStrategyFeaturesById, getLSDFiStrategyDisplayNameById, getStakingProtocolMapBySlug } from './staticDataService';
+import { getLsdFiStrategyIdByName } from './staticDataService';
 
 export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
   console.log('Fetching staking protocols...');
@@ -63,4 +64,28 @@ export async function getTvlAndApyHistory(poolId: string): Promise<any[]> {
   }
 
   return response.data;
+}
+
+export async function getLSDFiStrategies() {
+  return getLsdFiTvlAndApy()
+    .then(tvlApyRows => {
+      console.log(tvlApyRows);
+      const LSDFiStrategies: LSDFiStrategySummary[] = tvlApyRows
+        .map((row: any) => {
+          const id = getLsdFiStrategyIdByName(row["name"])!;
+          return {
+            id: id,
+            name: getLSDFiStrategyDisplayNameById(id),
+            tvl: row.tvlUSD,
+            netApy: row.APY,
+            stakingApy: 0,
+            tokenRewardsApy: 0,
+            fees: 0,
+            features: getLSDFiStrategyFeaturesById(id)
+          }
+        });
+
+      console.log(LSDFiStrategies);
+      return LSDFiStrategies;
+    });
 }

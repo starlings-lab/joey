@@ -1,4 +1,4 @@
-import { Level, StakingProtocol, StakingProtocolDetails, StakingProtocolRiskDetails, StakingProtocolSummary } from "../types";
+import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, StakingProtocolRiskDetails, StakingProtocolSummary } from "../types";
 
 export function getStakingProtocolDetails(protocolId: StakingProtocol): StakingProtocolDetails {
   return protocolDetailsMapById.get(protocolId)!;
@@ -10,6 +10,40 @@ export function getStakingProtocolMapBySlug(): ReadonlyMap<string, StakingProtoc
 
 export function getStakingProtocolRiskDetails(protocolId: StakingProtocol): StakingProtocolRiskDetails {
   return protocolRiskDetailsMapById.get(protocolId)!;
+}
+
+export function getLsdFiStrategyIdByName(name: string): LSDFiStrategy | undefined {
+  return LSDFiStrategyIdByNameMap.get(name.toLowerCase());
+}
+
+export function getLSDFiStrategyDisplayNameById(id: LSDFiStrategy): string {
+  switch (id) {
+    case LSDFiStrategy.OETH:
+      return 'OETH';
+    case LSDFiStrategy.Lybra:
+      return 'Lybra';
+    case LSDFiStrategy.UNSHETH:
+      return 'unshETH';
+    case LSDFiStrategy.SommelierRealYieldETH:
+      return 'Sommelier Real Yield ETH';
+    case LSDFiStrategy.AlchemixLidoETH:
+      return 'Alchemix Lido wstETH';
+  }
+}
+
+export function getLSDFiStrategyFeaturesById(id: LSDFiStrategy): string[] {
+  switch (id) {
+    case LSDFiStrategy.OETH:
+      return ["LP", "Index"];
+    case LSDFiStrategy.Lybra:
+      return ["Index", "Fees"];
+    case LSDFiStrategy.UNSHETH:
+      return ["Index", "LP"];
+    case LSDFiStrategy.SommelierRealYieldETH:
+      return ["Leverage", "LPing"];
+    case LSDFiStrategy.AlchemixLidoETH:
+      return ["Self-Repaying Loan"];
+  }
 }
 
 // protocols that we are interested in and its DefiLlama project name/slug
@@ -211,3 +245,11 @@ protocolRiskDetailsMapById.set(StakingProtocol.Stakewise, {
   hasSlashingInsurance: true,
   liquidity: Level.Low
 });
+
+// Name of LSDFi strategies used in dune query(id: 2750230) => LSDFiStrategy enum
+const LSDFiStrategyIdByNameMap = new Map<string, LSDFiStrategy>([
+  ["lybra", LSDFiStrategy.Lybra],
+  ["unsheth", LSDFiStrategy.UNSHETH],
+  ["oeth", LSDFiStrategy.OETH],
+  ["alchemix", LSDFiStrategy.AlchemixLidoETH],
+]);
