@@ -208,6 +208,88 @@ protocolDetailsMapById.set(StakingProtocol.Stakewise, {
   ]
 });
 
+protocolDetailsMapById.set(LSDFiStrategy.OETH, {
+  launchDate: 'May 2023',
+  auditors: [
+    { name: 'Narya', url: 'https://github.com/OriginProtocol/security/blob/master/audits/Narya%20-%20Origin%20OETH%20Report%20-%20May%202023%20-%20Initial%20Report.pdf' },
+    { name: 'Open Zeppelin +', url: 'https://docs.oeth.com/security-and-risks/audits' }
+  ],
+  investors: [
+    { name: 'a16z', url: 'https://a16z.com/' },
+    { name: 'Pantera Capital', url: 'https://panteracapital.com/' },
+    { name: 'Coinbase Ventures', url: 'https://www.coinbase.com/ventures' }
+  ],
+  websiteUrl: 'https://www.oeth.com/',
+  communicationChannels: [
+    { name: 'Twitter', url: 'https://twitter.com/OriginProtocol' },
+    { name: 'Discord', url: 'https://discord.com/invite/ogn' },
+  ]
+});
+
+protocolDetailsMapById.set(LSDFiStrategy.Lybra, {
+  launchDate: 'April 2023',
+  auditors: [
+    { name: 'Source Hat (formerly Solidity Finance)', url: 'https://solidity.finance/audits/Lybra/' },
+  ],
+  investors: [
+  ],
+  websiteUrl: 'https://lybrafinance.fi/',
+  communicationChannels: [
+    { name: 'Twitter', url: 'https://twitter.com/LybraFinanceLSD' },
+    { name: 'Discord', url: 'https://discord.com/invite/mgyq3PhdJg' },
+  ]
+});
+
+protocolDetailsMapById.set(LSDFiStrategy.UNSHETH, {
+  launchDate: 'February 2023',
+  auditors: [
+    { name: 'Certik', url: 'https://unsheth.xyz/v2-audit.pdf' },
+  ],
+  investors: [
+  ],
+  websiteUrl: 'https://unsheth.xyz/',
+  communicationChannels: [
+    { name: 'Twitter', url: 'https://twitter.com/unsheth_xyz' },
+    { name: 'Discord', url: 'https://discord.gg/5tZXASh5P3' },
+  ]
+});
+
+protocolDetailsMapById.set(LSDFiStrategy.SommelierRealYieldETH, {
+  launchDate: 'March 2023',
+  auditors: [
+    { name: '0xMacro', url: 'https://www.sommelier.finance/audits' },
+  ],
+  investors: [
+    { name: 'Polychain Capital', url: 'https://polychain.capital/' },
+    { name: 'Standard Crypto', url: 'https://www.standardcrypto.vc/' },
+    { name: 'Multicoin Capital', url: 'https://multicoin.capital/' }
+  ],
+  websiteUrl: 'https://www.sommelier.finance/',
+  communicationChannels: [
+    { name: 'Twitter', url: 'https://twitter.com/sommfinance' },
+    { name: 'Discord', url: 'https://discord.com/invite/ZcAYgSBxvY' },
+    { name: 'Telegram', url: 'https://t.me/getsomm' },
+  ]
+});
+
+protocolDetailsMapById.set(LSDFiStrategy.AlchemixLidoETH, {
+  launchDate: 'February 2021',
+  auditors: [
+    { name: 'Runtime Verification', url: 'https://alchemix-finance.gitbook.io/user-docs/audits' },
+  ],
+  investors: [
+    { name: 'Immutable Capital', url: 'https://immutable.capital/' },
+    { name: 'Nascent', url: 'https://www.nascent.xyz/' },
+    { name: 'e-girl capital', url: 'https://www.egirlcapital.com/' }
+  ],
+  websiteUrl: 'https://alchemix.fi/',
+  communicationChannels: [
+    { name: 'Twitter', url: 'https://twitter.com/AlchemixFi' },
+    { name: 'Discord', url: 'https://discord.com/invite/alchemix' },
+    { name: 'Medium', url: 'https://alchemixfi.medium.com/' },
+  ]
+});
+
 // Staking protocol risk details map
 const protocolRiskDetailsMapById = new Map<StakingProtocol | LSDFiStrategy, StakingProtocolRiskDetails>();
 protocolRiskDetailsMapById.set(StakingProtocol.Lido, {
