@@ -15,7 +15,6 @@
     "@types/node": "20.3.0",
     "@types/react": "18.2.11",
     "@types/react-dom": "18.2.4",
-    "@upstash/redis": "^1.22.0",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "^10.4.14",
     "eslint": "8.42.0",
@@ -38,7 +37,6 @@
     "trailingComma": "none"
   },
   "devDependencies": {
-    "@cowprotocol/ts-dune-client": "^0.0.2",
     "@types/numeral": "^2.0.2",
     "dotenv": "^16.3.1"
   }

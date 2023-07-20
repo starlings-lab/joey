@@ -69,8 +69,7 @@ export async function getTvlAndApyHistory(poolId: string): Promise<any[]> {
 export async function getLSDFiStrategies() {
   return getLsdFiTvlAndApy()
     .then(tvlApyRows => {
-      console.log(tvlApyRows);
-      const LSDFiStrategies: LSDFiStrategySummary[] = tvlApyRows
+      return tvlApyRows
         .map((row: any) => {
           const id = getLsdFiStrategyIdByName(row["name"])!;
           return {
@@ -84,8 +83,5 @@ export async function getLSDFiStrategies() {
             features: getLSDFiStrategyFeaturesById(id)
           }
         });
-
-      console.log(LSDFiStrategies);
-      return LSDFiStrategies;
     });
 }
