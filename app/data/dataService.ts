@@ -1,6 +1,6 @@
 import { LSDFiStrategySummary, StakingProtocolSummary } from '../types';
 import { getLsdFiTvlAndApy } from './duneDataService';
-import { getLSDFiStrategyFeaturesById, getLSDFiStrategyDisplayNameById, getStakingProtocolMapBySlug } from './staticDataService';
+import { getLSDFiStrategyFeaturesById, getLSDFiStrategyDisplayNameById, getStakingProtocolMapBySlug, getLSDFiFeeById } from './staticDataService';
 import { getLsdFiStrategyIdByName } from './staticDataService';
 
 export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
@@ -82,7 +82,7 @@ export async function getLSDFiStrategies() {
             netApy: row.APY,
             stakingApy: 0,
             tokenRewardsApy: 0,
-            fees: 0,
+            fees: getLSDFiFeeById(id),
             features: getLSDFiStrategyFeaturesById(id),
             logoUrl: getLSDFiStrategyDisplayNameById(id)
           }

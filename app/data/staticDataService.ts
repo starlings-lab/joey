@@ -31,6 +31,21 @@ export function getLSDFiStrategyDisplayNameById(id: LSDFiStrategy): string {
   }
 }
 
+export function getLSDFiFeeById(id: LSDFiStrategy): string {
+  switch (id) {
+    case LSDFiStrategy.OETH:
+      return '?';
+    case LSDFiStrategy.Lybra:
+      return '?';
+    case LSDFiStrategy.UNSHETH:
+      return '?';
+    case LSDFiStrategy.SommelierRealYieldETH:
+      return '?';
+    case LSDFiStrategy.AlchemixLidoETH:
+      return '10';
+  }
+}
+
 export function getLSDFiStrategyFeaturesById(id: LSDFiStrategy): string[] {
   switch (id) {
     case LSDFiStrategy.OETH:
