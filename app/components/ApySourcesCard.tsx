@@ -3,9 +3,9 @@
 import { Card, Flex, Metric, Text, Title } from "@tremor/react";
 
 import numeral from "numeral";
-import { StakingProtocolSummary } from "../types";
+import { StakingProtocolSummary, LSDFiStrategySummary } from "../types";
 
-export default function ApySourcesCard({ summary, className }: { summary: StakingProtocolSummary, className?: string }) {
+export default function ApySourcesCard({ summary, className }: { summary: StakingProtocolSummary | LSDFiStrategySummary, className?: string }) {
   const classes = `${className}`;
   return (
     <Card decoration="top" decorationColor="green" className={classes}>

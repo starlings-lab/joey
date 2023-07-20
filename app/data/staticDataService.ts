@@ -1,6 +1,6 @@
 import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, StakingProtocolRiskDetails, StakingProtocolSummary } from "../types";
 
-export function getStakingProtocolDetails(protocolId: StakingProtocol): StakingProtocolDetails {
+export function getStakingProtocolDetails(protocolId: StakingProtocol | LSDFiStrategy): StakingProtocolDetails {
   return protocolDetailsMapById.get(protocolId)!;
 }
 
@@ -8,7 +8,7 @@ export function getStakingProtocolMapBySlug(): ReadonlyMap<string, StakingProtoc
   return protocolMapBySlug;
 }
 
-export function getStakingProtocolRiskDetails(protocolId: StakingProtocol): StakingProtocolRiskDetails {
+export function getStakingProtocolRiskDetails(protocolId: StakingProtocol | LSDFiStrategy): StakingProtocolRiskDetails {
   return protocolRiskDetailsMapById.get(protocolId)!;
 }
 
@@ -112,7 +112,7 @@ protocolSlugs.forEach((slug: string) => {
 });
 
 // Static Data Reference: https://docs.google.com/spreadsheets/d/1SEXcufZL1-hskd3bkX8bZPCiuSHwoJe4o-I3xQFLBV8
-const protocolDetailsMapById = new Map<StakingProtocol, StakingProtocolDetails>();
+const protocolDetailsMapById = new Map<StakingProtocol | LSDFiStrategy, StakingProtocolDetails>();
 protocolDetailsMapById.set(StakingProtocol.Lido, {
   launchDate: 'June 2021',
   auditors: [
@@ -209,7 +209,7 @@ protocolDetailsMapById.set(StakingProtocol.Stakewise, {
 });
 
 // Staking protocol risk details map
-const protocolRiskDetailsMapById = new Map<StakingProtocol, StakingProtocolRiskDetails>();
+const protocolRiskDetailsMapById = new Map<StakingProtocol | LSDFiStrategy, StakingProtocolRiskDetails>();
 protocolRiskDetailsMapById.set(StakingProtocol.Lido, {
   multipleAudits: true,
   protocolDependencies: [],
