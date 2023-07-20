@@ -23,7 +23,6 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
     getStakingProtocolSummary(params.protocol),
     getTvlAndApyHistory(params.protocol)
   ]);
-  console.log('history ==>', history);
 
   // calculate monthly delta
   const currentDataPoint = history[history.length - 1];

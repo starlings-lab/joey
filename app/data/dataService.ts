@@ -39,13 +39,16 @@ export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
   return Array.from(protocolMapBySlug.values());
 }
 
-export async function getStakingProtocolSummary(poolId: string) {
+export async function getStakingProtocolSummary(protocolName: string) {
   const stakingProtocols = await getStakingProtocols();
-  return stakingProtocols.find((protocol) => protocol.defiLlamaPoolId === poolId);
+  return stakingProtocols.find((protocol) => protocol.name === protocolName);
 }
 
-export async function getTvlAndApyHistory(poolId: string): Promise<any[]> {
-  const endpoint = 'https://yields.llama.fi/chart/' + poolId;
+export async function getTvlAndApyHistory(protocolName: string): Promise<any[]> {
+  const stakingProtocols = await getStakingProtocols();
+  const protocol =  stakingProtocols.find((protocol) => protocol.name === protocolName);
+
+  const endpoint = 'https://yields.llama.fi/chart/' + protocol?.defiLlamaPoolId;
   console.log('Fetching TVL and APY history using endpoint: ' + endpoint);
 
   const res = await fetch(endpoint, { cache: 'no-store' });
