@@ -27,7 +27,7 @@ export function getLSDFiStrategyDisplayNameById(id: LSDFiStrategy): string {
     case LSDFiStrategy.SommelierRealYieldETH:
       return 'Sommelier Real Yield ETH';
     case LSDFiStrategy.AlchemixLidoETH:
-      return 'Alchemix Lido wstETH';
+      return 'AlchemixLidoWstETH';
   }
 }
 
@@ -67,7 +67,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'lido':
       stakingProtocol.id = StakingProtocol.Lido;
       stakingProtocol.name = 'Lido';
-      stakingProtocol.logoUrl = 'lido.svg';
+      stakingProtocol.logoUrl = 'lido';
 
       // Lido takes 10% fee on users staking rewards
       // Source: https://docs.lido.fi/#protocol-fee
@@ -76,7 +76,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'frax-ether':
       stakingProtocol.id = StakingProtocol.FraxEther;
       stakingProtocol.name = 'FraxEther';
-      stakingProtocol.logoUrl = 'frax.svg';
+      stakingProtocol.logoUrl = 'frax';
 
       // Source: https://exponential.fi/assets/b8956e66-fe6c-4a88-8e96-530e2e7dea4c
       stakingProtocol.fees = 10;
@@ -84,7 +84,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'rocket-pool':
       stakingProtocol.id = StakingProtocol.RocketPool;
       stakingProtocol.name = 'RocketPool';
-      stakingProtocol.logoUrl = 'rocketpool.svg';
+      stakingProtocol.logoUrl = 'rocketpool';
 
       // TODO: how do we display 0.05% of deposit fee when ETH is depsoited through protocol?
       // Source: https://twitter.com/Rocket_Pool/status/1506519957986758659
@@ -94,7 +94,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'coinbase-wrapped-staked-eth':
       stakingProtocol.id = StakingProtocol.Coinbase;
       stakingProtocol.name = 'CoinbaseEth';
-      stakingProtocol.logoUrl = 'coinbase.svg';
+      stakingProtocol.logoUrl = 'coinbase';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
       stakingProtocol.fees = 25;
@@ -102,7 +102,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'stakewise':
       stakingProtocol.id = StakingProtocol.Stakewise;
       stakingProtocol.name = 'StakeWise';
-      stakingProtocol.logoUrl = 'stakewise.svg';
+      stakingProtocol.logoUrl = 'stakewise';
 
       // Source: https://docs.stakewise.io/faq#what-is-the-commission-for-staking-in-stakewise-pool
       stakingProtocol.fees = 10;

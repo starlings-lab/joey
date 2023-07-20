@@ -83,7 +83,8 @@ export async function getLSDFiStrategies() {
             stakingApy: 0,
             tokenRewardsApy: 0,
             fees: 0,
-            features: getLSDFiStrategyFeaturesById(id)
+            features: getLSDFiStrategyFeaturesById(id),
+            logoUrl: getLSDFiStrategyDisplayNameById(id)
           }
         });
     });
