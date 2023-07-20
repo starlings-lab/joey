@@ -12,8 +12,8 @@ export default function ApySourcesCard({ summary, className }: { summary: Stakin
       <Title className="text-2xl font-bold mb-2">APY Sources</Title>
       <Flex>
         <div className="mr-10">
-          <Text>Staking APY</Text>
-          <Metric className="mt-2 mb-2">{numeral(summary.stakingApy).format('0.00')}%</Metric>
+          <Text>Net APY</Text>
+          <Metric className="mt-2 mb-2">{numeral(summary.netApy).format('0.00')}%</Metric>
           {summary.tokenRewardsApy === 0 && <Text className="text-xs text-gray-500">* No token rewards offered by the protocol</Text>}
         </div>
         <div>
