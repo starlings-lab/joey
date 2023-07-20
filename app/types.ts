@@ -66,10 +66,10 @@ export enum Level {
   High
 }
 
-export interface StakingProtocolRiskDetails {
+export interface RiskDetails {
   multipleAudits: boolean;
   protocolDependencies: string[];
-  hasSlashingInsurance: boolean;
+  hasSlashingInsurance?: boolean;
   slashingInsuranceNote?: string;
   liquidity: Level;
 }

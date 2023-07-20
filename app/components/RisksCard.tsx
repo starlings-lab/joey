@@ -2,11 +2,11 @@
 
 import { Button, Card, Flex, Icon, Title } from "@tremor/react";
 
-import { Level, StakingProtocolRiskDetails } from "../types";
+import { Level, RiskDetails } from "../types";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 
-export default function RisksCard({ riskDetails, className }: { riskDetails: StakingProtocolRiskDetails, className?: string }) {
+export default function RisksCard({ riskDetails, className }: { riskDetails: RiskDetails, className?: string }) {
   const classes = `${className}`;
   return (
     <Card decoration="top" decorationColor="red" className={classes}>

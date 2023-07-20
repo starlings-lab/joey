@@ -7,7 +7,7 @@ import ProtocolDetailSection from "../../components/ProtocolDetailSection";
 import StrategyCard from "../../components/StrategyCard";
 import ApySourcesCard from "../../components/ApySourcesCard";
 import RisksCard from "../../components/RisksCard";
-import { getStakingProtocolRiskDetails } from "../../data/staticDataService";
+import { getRiskDetails } from "../../data/staticDataService";
 import { getLSDFiStrategySummary } from '../../data/dataService';
 import Link from "next/link";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
@@ -346,7 +346,7 @@ export default async function LSDFiDetails({ params }: PageProps ) {
               <ApySourcesCard summary={summary!} />
             </div>
             <div className="md:w-1/2 mt-5">
-              <RisksCard riskDetails={getStakingProtocolRiskDetails(summary!.id)} />
+              <RisksCard riskDetails={getRiskDetails(summary!.id)} />
             </div>
           </div>
         </div>

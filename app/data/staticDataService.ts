@@ -1,4 +1,4 @@
-import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, StakingProtocolRiskDetails, StakingProtocolSummary } from "../types";
+import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, RiskDetails, StakingProtocolSummary } from "../types";
 
 export function getStakingProtocolDetails(protocolId: StakingProtocol | LSDFiStrategy): StakingProtocolDetails {
   return protocolDetailsMapById.get(protocolId)!;
@@ -8,8 +8,8 @@ export function getStakingProtocolMapBySlug(): ReadonlyMap<string, StakingProtoc
   return protocolMapBySlug;
 }
 
-export function getStakingProtocolRiskDetails(protocolId: StakingProtocol | LSDFiStrategy): StakingProtocolRiskDetails {
-  return protocolRiskDetailsMapById.get(protocolId)!;
+export function getRiskDetails(id: StakingProtocol | LSDFiStrategy): RiskDetails {
+  return protocolRiskDetailsMapById.get(id)!;
 }
 
 export function getLsdFiStrategyIdByName(name: string): LSDFiStrategy | undefined {
@@ -352,7 +352,7 @@ protocolDetailsMapById.set(LSDFiStrategy.AlchemixLidoETH, {
 });
 
 // Staking protocol risk details map
-const protocolRiskDetailsMapById = new Map<StakingProtocol | LSDFiStrategy, StakingProtocolRiskDetails>();
+const protocolRiskDetailsMapById = new Map<StakingProtocol | LSDFiStrategy, RiskDetails>();
 protocolRiskDetailsMapById.set(StakingProtocol.Lido, {
   multipleAudits: true,
   protocolDependencies: [],
@@ -387,6 +387,36 @@ protocolRiskDetailsMapById.set(StakingProtocol.Stakewise, {
   protocolDependencies: [],
   hasSlashingInsurance: true,
   liquidity: Level.Low
+});
+
+protocolRiskDetailsMapById.set(LSDFiStrategy.OETH, {
+  multipleAudits: true,
+  protocolDependencies: [],
+  liquidity: Level.High
+});
+
+protocolRiskDetailsMapById.set(LSDFiStrategy.Lybra, {
+  multipleAudits: false,
+  protocolDependencies: [],
+  liquidity: Level.Medium
+});
+
+protocolRiskDetailsMapById.set(LSDFiStrategy.UNSHETH, {
+  multipleAudits: false,
+  protocolDependencies: [],
+  liquidity: Level.Low
+});
+
+protocolRiskDetailsMapById.set(LSDFiStrategy.SommelierRealYieldETH, {
+  multipleAudits: true,
+  protocolDependencies: [],
+  liquidity: Level.Low
+});
+
+protocolRiskDetailsMapById.set(LSDFiStrategy.AlchemixLidoETH, {
+  multipleAudits: true,
+  protocolDependencies: [],
+  liquidity: Level.High
 });
 
 // Name of LSDFi strategies used in dune query(id: 2750230) => LSDFiStrategy enum
