@@ -46,6 +46,25 @@ export function getLSDFiStrategyFeaturesById(id: LSDFiStrategy): string[] {
   }
 }
 
+export function getLSDFiStrategyHowItWorks(id: LSDFiStrategy): string {
+  switch (id) {
+    case LSDFiStrategy.OETH:
+      return `Index of liquid staking protocols: OETH earns staking rewards from various liquid staking protocols. 
+      
+      Liquidity Provision with boost: Your deposit will be converted to OETH token and the protocols provide liquidity to OETH-ETH pair in Curve. Then the protocol uses Convex to boost token rewards in Curve and Convex.`;
+    case LSDFiStrategy.Lybra:
+      return `Lybra Finance has launched two native tokens - eUSD, an interest-bearing stablecoin, and LBR, a utility token. Users can deposit ETH/stETH, mint eUSD, and earn interest or use it in other DeFi protocols. The platform generates interest from stETH and liquidity staking derivatives, while the eUSD maintains a $1 peg through user-regulated supply and demand. Users can earn yield via holding eUSD, leverage their long position on ETH and profit from LBR tokens. `;
+    case LSDFiStrategy.UNSHETH:
+      return `unshETH Ether is a diversified liquid staked ETH index that earns staking ETH yield and swap fees, all wrapped in a single omnichain ERC-20 token available on ETH, BNB Chain, and Arbitrum.`;
+    case LSDFiStrategy.SommelierRealYieldETH:
+      return `"Leveraged staking: Sommelier borrows ETH against LSD tokens, stake the borrowed ETH to get LSD tokens, and borrows ETH against the LSD tokens again. They repeat this cycle to maximize yields. 
+      
+      Liquidity Provisioning: Sommelier provides liquidity to ETH/ LSD trading pairs on Uniswap V3. They earn fees from traders who swap between the two tokens."`;
+    case LSDFiStrategy.AlchemixLidoETH:
+      return `Alchemix allows participants to secure their loans with collateral. The unique aspect of Alchemix is its ability to convert that collateral into a tokenized asset, which can be employed elsewhere in the DeFi marketplace. This synthetic collateral is subsequently lent out, which allows for the autonomous repayment of the initial loan, while avoiding the risk of forced liquidation.`;
+  }
+}
+
 // protocols that we are interested in and its DefiLlama project name/slug
 const protocolSlugs = ['lido', 'frax-ether', 'rocket-pool', 'coinbase-wrapped-staked-eth', 'stakewise'];
 const protocolMapBySlug = new Map<string, StakingProtocolSummary>();

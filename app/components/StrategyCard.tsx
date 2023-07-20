@@ -1,14 +1,16 @@
 'use client';
 
-import { Button, Card, Flex, Icon, Title } from "@tremor/react";
+import { Card, Title } from "@tremor/react";
+import { getLSDFiStrategyHowItWorks } from '../data/staticDataService';
+import { LSDFiStrategy } from '../types';
 
-export default function StrategyCard({ className }: { className?: string }) {
-  const classes = `${className}`;
+export default function StrategyCard( {lsdFiStrategy}: {lsdFiStrategy:LSDFiStrategy}) {
   return (
-    <Card decoration="top" decorationColor="red" className={classes}>
+    <Card decoration="top" decorationColor="red">
       <Title className="text-2xl font-bold mb-2">Strategy</Title>
       <div className="mt-4 md:w-1/2">
-        How It Works
+        <p>How It Works</p>
+        <p>{getLSDFiStrategyHowItWorks(lsdFiStrategy)}</p>
       </div>
       <div className="mt-4 md:w-1/2">
         Protocols

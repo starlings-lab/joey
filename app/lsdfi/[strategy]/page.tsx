@@ -340,7 +340,7 @@ export default async function LSDFiDetails({ params }: PageProps ) {
             </div>
           </div>
           <TvlAndApyLineChart historyData={history} />
-          <div><StrategyCard className="md:flex mt-5"></StrategyCard></div>
+          <div><StrategyCard lsdFiStrategy={summary!.id}></StrategyCard></div>
           <div className="md:flex">
             <div className="md:w-1/2 mt-5 md:mr-5">
               <ApySourcesCard summary={summary!} />
