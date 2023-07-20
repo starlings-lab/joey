@@ -110,7 +110,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
 
                 return (
                   <TableCell key={column.property}>
-                    <Link className="w-full" href={`/${sp.defiLlamaPoolId}`}>
+                    <Link className="w-full" href={`/liquid_staking/${sp.defiLlamaPoolId}`}>
                       {index === 0 && <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />}
                       <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text>
                     </Link>

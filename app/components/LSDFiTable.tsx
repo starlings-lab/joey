@@ -111,7 +111,7 @@ export default function LSDFiTable({ lsdFiStrategies }: { lsdFiStrategies: LSDFi
 
                 return (
                   <TableCell key={column.property}>
-                    <Link className="w-full" href={`/${sp.name}`}>
+                    <Link className="w-full" href={`/lsdfi/${sp.name}`}>
                       {index === 0 && <Image width="35" height="35" alt="" src={`/${sp.logoUrl}`} className="logo" />}
                       <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text>
                     </Link>

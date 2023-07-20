@@ -1,13 +1,13 @@
 import { Card, Flex, Title } from "@tremor/react";
 import numeral from "numeral";
 
-import TvlAndApyLineChart from "../components/TvlAndApyLineChart";
-import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
-import { getStakingProtocolSummary, getTvlAndApyHistory } from "../data/dataService";
-import ProtocolDetailSection from "../components/ProtocolDetailSection";
-import ApySourcesCard from "../components/ApySourcesCard";
-import RisksCard from "../components/RisksCard";
-import { getStakingProtocolRiskDetails } from "../data/staticDataService";
+import TvlAndApyLineChart from "../../components/TvlAndApyLineChart";
+import ValueBadgeWithDelta from "../../components/ValueBadgeWithDelta";
+import { getStakingProtocolSummary, getTvlAndApyHistory } from "../../data/dataService";
+import ProtocolDetailSection from "../../components/ProtocolDetailSection";
+import ApySourcesCard from "../../components/ApySourcesCard";
+import RisksCard from "../../components/RisksCard";
+import { getStakingProtocolRiskDetails } from "../../data/staticDataService";
 import Link from "next/link";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
@@ -23,6 +23,7 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
     getStakingProtocolSummary(params.protocol),
     getTvlAndApyHistory(params.protocol)
   ]);
+  console.log('history ==>', history);
 
   // calculate monthly delta
   const currentDataPoint = history[history.length - 1];
@@ -34,7 +35,7 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
       <div className="text-3xl font-bold mb-2">{summary?.name}</div>
       <div className="flex mr-2 mb-2 mt-2">
-        <Link className="text-[#5C59E8]" href="/">Home</Link><span><ChevronDoubleRightIcon width="16" className="text-gray m-1"></ChevronDoubleRightIcon></span><Link className="text-[#5C59E8]" href="">{summary?.name}</Link>
+        <div>Liquid Staking Protocols</div><span><ChevronDoubleRightIcon width="16" className="text-gray m-1"></ChevronDoubleRightIcon></span><Link className="text-[#5C59E8]" href="">{summary?.name}</Link>
       </div>
       <div className="md:flex">
         <div className="mt-4 md:w-1/5 md:mr-5">
