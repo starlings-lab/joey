@@ -88,3 +88,7 @@ export async function getLSDFiStrategies() {
         });
     });
 }
+export async function getLSDFiStrategySummary(strategyName: string) {
+  const lsdFiStrategies = await getLSDFiStrategies();
+  return lsdFiStrategies.find((strategy) => strategy.name === strategyName);
+}

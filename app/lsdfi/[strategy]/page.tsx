@@ -8,27 +8,18 @@ import StrategyCard from "../../components/StrategyCard";
 import ApySourcesCard from "../../components/ApySourcesCard";
 import RisksCard from "../../components/RisksCard";
 import { getStakingProtocolRiskDetails } from "../../data/staticDataService";
+import { getLSDFiStrategySummary } from '../../data/dataService';
 import Link from "next/link";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
 interface PageProps {
   params: {
-    protocol: string;
+    strategy: string;
   };
 }
 
-export default async function LSDFiDetails({ params }: PageProps) {
-  const summary = {
-    id: 0,
-    name: 'OETH',
-    tvl: 14820998351,
-    netApy: 3.9,
-    stakingApy: 3.9,
-    tokenRewardsApy: 0,
-    fees: 10,
-    logoUrl: 'oeth.svg',
-    defiLlamaPoolId: '747c1d2a-c668-4682-b9f9-296708a3dd90'
-  }
+export default async function LSDFiDetails({ params }: PageProps ) {
+  const summary = await getLSDFiStrategySummary(params.strategy);
 
   const history = [
     {
