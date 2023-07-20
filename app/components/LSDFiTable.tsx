@@ -22,10 +22,10 @@ const columns = [
   { label: 'Strategy', property: 'name' },
   { label: 'Features', property: 'features' },
   { label: 'TVL', property: 'tvl', format: '($0.00a)' },
-  { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY', format: '0.00', percent: true },
-  { label: 'Staking APY', property: 'stakingApy', info: 'Staking Rewards - Fees', format: '0.00', percent: true },
-  { label: 'Token Rewards APY', property: 'tokenRewardsApy', format: '0.00', percent: true },
-  { label: 'Fees', property: 'fees', info: '% of staking rewards taken by the protocol', format: '0.00', percent: true }
+  { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY - Fees', format: '0.00', percent: true },
+  { label: 'Base APY', property: 'stakingApy', format: '0.00', percent: true },
+  { label: 'Token Rewards', property: 'tokenRewardsApy', format: '0.00', percent: true },
+  { label: 'Fees', property: 'fees', info: '% of the Base APY taken by the protocol', format: '0.00', percent: true }
 ]
 
 const sortData = (data: LSDFiStrategySummary[], sortField: string, sortOrder: SortOrder): LSDFiStrategySummary[] => {
