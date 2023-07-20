@@ -18,7 +18,7 @@ export default function ProtocolDetailSection({ summary }: { summary: StakingPro
   return (
     <div>
       <div className="flex items-center justify-center">
-        <Image width="240" height="240" alt="" src={summary.logoUrl} />
+        <Image width="240" height="240" alt="" src={`/${summary.logoUrl}`} />
       </div>
       <Divider />
       <Detail>
