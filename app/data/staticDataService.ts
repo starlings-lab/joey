@@ -65,6 +65,33 @@ export function getLSDFiStrategyHowItWorks(id: LSDFiStrategy): string {
   }
 }
 
+export function getLSDFiStrategyProtocols(id: LSDFiStrategy): string[] {
+  switch (id) {
+    case LSDFiStrategy.OETH:
+      return ["Convex",
+      "RocketPool",
+      "Frax Ether",
+      "Lido",
+      "Morpho"];
+    case LSDFiStrategy.Lybra:
+      return ["Lido"];
+    case LSDFiStrategy.UNSHETH:
+      return ["Frax",
+      "Rocket Pool",
+      "Lido",
+      "Coinbase",
+      "Ankr",
+      "Swell"];
+    case LSDFiStrategy.SommelierRealYieldETH:
+      return ["Morpho",
+      "Compound",
+      "Aave",
+      "Uniswap v3"];
+    case LSDFiStrategy.AlchemixLidoETH:
+      return ["Lido"];
+  }
+}
+
 // protocols that we are interested in and its DefiLlama project name/slug
 const protocolSlugs = ['lido', 'frax-ether', 'rocket-pool', 'coinbase-wrapped-staked-eth', 'stakewise'];
 const protocolMapBySlug = new Map<string, StakingProtocolSummary>();

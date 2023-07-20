@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, Title } from "@tremor/react";
-import { getLSDFiStrategyHowItWorks } from '../data/staticDataService';
+import { getLSDFiStrategyHowItWorks, getLSDFiStrategyProtocols } from '../data/staticDataService';
 import { LSDFiStrategy } from '../types';
 
 export default function StrategyCard( {lsdFiStrategy}: {lsdFiStrategy:LSDFiStrategy}) {
@@ -13,7 +13,8 @@ export default function StrategyCard( {lsdFiStrategy}: {lsdFiStrategy:LSDFiStrat
         <p>{getLSDFiStrategyHowItWorks(lsdFiStrategy)}</p>
       </div>
       <div className="mt-4 md:w-1/2">
-        Protocols
+        <p>Protocols</p>
+        <p>{getLSDFiStrategyProtocols(lsdFiStrategy)}</p>
       </div>
     </Card>
   );
