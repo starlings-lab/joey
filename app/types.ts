@@ -2,7 +2,7 @@ export enum StakingProtocol {
   Lido,
   FraxEther,
   RocketPool,
-  Coinbase,
+  CoinbaseETH,
   Stakewise
 }
 export enum LSDFiStrategy {

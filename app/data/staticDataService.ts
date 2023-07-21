@@ -97,7 +97,7 @@ export function getLSDFiStrategyProtocols(id: LSDFiStrategy): string[] {
       return ["FraxEther",
         "RocketPool",
         "Lido",
-        "Coinbase",
+        "CoinbaseETH",
         "Ankr",
         "Swell"];
     case LSDFiStrategy.SommelierRealYieldETH:
@@ -160,17 +160,17 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.depositFee = 0.0005;
       break;
     case 'coinbase-wrapped-staked-eth':
-      stakingProtocol.id = StakingProtocol.Coinbase;
+      stakingProtocol.id = StakingProtocol.CoinbaseETH;
       stakingProtocol.name = 'CoinbaseEth';
-      stakingProtocol.logoUrl = 'Coinbase';
+      stakingProtocol.logoUrl = 'CoinbaseETH';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
       stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 25}];
       break;
     case 'stakewise':
       stakingProtocol.id = StakingProtocol.Stakewise;
-      stakingProtocol.name = 'StakeWise';
-      stakingProtocol.logoUrl = 'stakewise';
+      stakingProtocol.name = 'Stakewise';
+      stakingProtocol.logoUrl = 'Stakewise';
 
       // Source: https://docs.stakewise.io/faq#what-is-the-commission-for-staking-in-stakewise-pool
       stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 10}];
@@ -240,7 +240,7 @@ protocolDetailsMapById.set(StakingProtocol.RocketPool, {
   ]
 });
 
-protocolDetailsMapById.set(StakingProtocol.Coinbase, {
+protocolDetailsMapById.set(StakingProtocol.CoinbaseETH, {
   launchDate: 'March 2023',
   auditors: [
     { name: 'OpenZeppelin', url: 'https://blog.openzeppelin.com/coinbase-liquid-staking-token-audit' }
@@ -381,7 +381,7 @@ protocolRiskDetailsMapById.set(StakingProtocol.RocketPool, {
   liquidity: Level.Medium
 });
 
-protocolRiskDetailsMapById.set(StakingProtocol.Coinbase, {
+protocolRiskDetailsMapById.set(StakingProtocol.CoinbaseETH, {
   multipleAudits: false,
   protocolDependencies: [],
   hasSlashingInsurance: false,
