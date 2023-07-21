@@ -49,13 +49,16 @@ export function getLSDFiFeeById(id: LSDFiStrategy): number {
 export function getLSDFiStrategyFeaturesById(id: LSDFiStrategy): string[] {
   switch (id) {
     case LSDFiStrategy.OETH:
-      return ["LP", "Index"];
+      // Source: https://docs.oeth.com/core-concepts/yield-generation
+      return ["Index", "Lending", "LP", "Rewards"];
     case LSDFiStrategy.Lybra:
       return ["Index", "Fees"];
     case LSDFiStrategy.UNSHETH:
-      return ["Index", "LP"];
+      // Source: https://docs.unsheth.xyz/en/unshETH
+      // unshETH Real Yield APR = ETH Staking APR + Swap Fee APR (swapping between LSDs) + Mint/Redeem Fee APR
+      return ["Index", "Fees", "LP"];
     case LSDFiStrategy.SommelierRealYieldETH:
-      return ["Leverage", "LPing"];
+      return ["Leverage", "Lending", "LP"];
     case LSDFiStrategy.AlchemixLidoETH:
       return ["Self-Repaying Loan"];
   }

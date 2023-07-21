@@ -63,6 +63,7 @@ export async function getStakingProtocolsAndStrategies():
   return [Array.from(protocolMapBySlug.values()), Array.from(strategyMapBySlug.values())];
 }
 
+// Staking protocols tvl and apy based on DefiLlama data
 export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
   return getStakingProtocolsAndStrategies()
     .then(([stakingProtocols, _ignore]) => stakingProtocols);
@@ -79,11 +80,21 @@ export async function getStakingProtocolSummary(protocolName: string) {
   return stakingProtocols.find((protocol) => protocol.name === protocolName);
 }
 
-export async function getTvlAndApyHistory(protocolName: string): Promise<any[]> {
-  const stakingProtocols = await getStakingProtocols();
-  const protocol = stakingProtocols.find((protocol) => protocol.name === protocolName);
+export async function getTvlAndApyHistory(protocolOrStrategyName: string, strategy: boolean = false): Promise<any[]> {
+  let summary: StakingProtocolSummary | LSDFiStrategySummary | undefined;
+  if (strategy) {
+    const strategies = await getLSDFiStrategies();
+    summary = strategies.find((strategy) => strategy.name === protocolOrStrategyName);
+  } else {
+    const protocols = await getStakingProtocols();
+    summary = protocols.find((protocol) => protocol.name === protocolOrStrategyName);
+  }
 
-  const endpoint = 'https://yields.llama.fi/chart/' + protocol?.defiLlamaPoolId;
+  if (!summary) {
+    throw new Error('Failed to fetch TVL and APY history data for ' + protocolOrStrategyName);
+  }
+
+  const endpoint = 'https://yields.llama.fi/chart/' + summary?.defiLlamaPoolId;
   console.log('Fetching TVL and APY history using endpoint: ' + endpoint);
 
   const res = await fetch(endpoint, { cache: 'no-store' });
