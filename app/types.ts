@@ -27,6 +27,7 @@ export interface ProtocolSummary {
   tokenRewardsApy: number;
   fees: Fee[];
   defiLlamaPoolId?: string;
+  defiLlamaProject: string;
   [key: string]: string | number | undefined | string[] | Fee[];
 }
 
@@ -60,9 +61,15 @@ export enum SortOrder {
   Descending
 }
 
-export interface TvlAndApyDataPoint {
+export interface DataPoint {
   timestamp: Date;
+}
+
+export interface TvlDataPoint extends DataPoint {
   tvlUsd: number;
+}
+
+export interface ApyDataPoint extends DataPoint {
   apy: number;
 }
 

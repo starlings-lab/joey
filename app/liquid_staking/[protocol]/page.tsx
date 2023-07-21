@@ -19,16 +19,21 @@ interface PageProps {
 
 export default async function StakingProtocolDetails({ params }: PageProps) {
   // Wait for the promises to resolve
-  const [summary, history] = await Promise.all([
+  // Wait for the promises to resolve
+  const [summary, tvlAndApyHistory] = await Promise.all([
     getStakingProtocolSummary(params.protocol),
     getTvlAndApyHistory(params.protocol)
   ]);
 
-  // calculate monthly delta
-  const currentDataPoint = history[history.length - 1];
-  const prevDataPoint = history[history.length - 31];
-  const tvlMonthlyPercentChange = ((currentDataPoint.tvlUsd - prevDataPoint.tvlUsd) * 100) / prevDataPoint.tvlUsd;
-  const apyMonthlyPercentChange = ((currentDataPoint.apy - prevDataPoint.apy) * 100) / prevDataPoint.apy;
+  const [tvlHistory, apyHistory] = tvlAndApyHistory;
+  const currentDataPointApy = apyHistory[apyHistory.length - 1];
+  const prevDataPointApy = apyHistory[apyHistory.length - 31];
+  const apyMonthlyPercentChange = ((currentDataPointApy.apy - prevDataPointApy.apy) * 100) / prevDataPointApy.apy;
+
+  const currentDataPointTvl = tvlHistory[tvlHistory.length - 1];
+  const prevDataPointTvl = tvlHistory[tvlHistory.length - 31];
+  const tvlMonthlyPercentChange = ((currentDataPointTvl.tvlUsd - prevDataPointTvl.tvlUsd) * 100) / prevDataPointTvl.tvlUsd;
+
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
@@ -51,7 +56,7 @@ export default async function StakingProtocolDetails({ params }: PageProps) {
               <ValueBadgeWithDelta label="Net APY - Current" formattedValue={`${numeral(summary?.netApy || 0).format('0.00')}%`} monthlyPercentChange={apyMonthlyPercentChange} />
             </div>
           </div>
-          <TvlAndApyLineChart historyData={history} />
+          <TvlAndApyLineChart apyHistoryData={apyHistory} tvlHistoryData={tvlHistory} />
           <div className="md:flex">
             <div className="md:w-1/2 mt-5 md:mr-5">
               <ApySourcesCard summary={summary!} />

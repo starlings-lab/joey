@@ -1,4 +1,4 @@
-import { LSDFiStrategySummary, StakingProtocolSummary } from '../types';
+import { ApyDataPoint, LSDFiStrategySummary, StakingProtocolSummary, TvlDataPoint } from '../types';
 import { getStakingProtocolMapBySlug, getLSDFiStrategyMapBySlug } from './staticDataService';
 
 const DEFILLAMA_PROTOCOL_ENDPOINT = 'https://api.llama.fi/updatedProtocol/';
@@ -72,14 +72,14 @@ export async function getStakingProtocolsAndStrategies():
   for (const [slug, dataPromise] of dataPromisMapBySlug.entries()) {
     const dataResponse = await dataPromise;
     const data = await dataResponse.json();
-    console.log('Fetched TVL: ' + data.currentChainTvls.Ethereum + ' for slug: ' + slug);
+    // console.log('Fetched TVL: ' + data.currentChainTvls.Ethereum + ' for slug: ' + slug);
     const summary: StakingProtocolSummary | LSDFiStrategySummary | undefined = protocolMapBySlug.get(slug) || strategyMapBySlug.get(slug);
     if (summary) {
       summary.tvl = data.currentChainTvls.Ethereum;
     }
   }
 
-  console.log('Fetched staking protocols & LSDFi strategies: ' + dataFetchCount + ' out of ' + dataFetchCountRequired);
+  // console.log('Fetched staking protocols & LSDFi strategies: ' + dataFetchCount + ' out of ' + dataFetchCountRequired);
   return [Array.from(protocolMapBySlug.values()), Array.from(strategyMapBySlug.values())];
 }
 
@@ -100,7 +100,8 @@ export async function getStakingProtocolSummary(protocolName: string) {
   return stakingProtocols.find((protocol) => protocol.name === protocolName);
 }
 
-export async function getTvlAndApyHistory(protocolOrStrategyName: string, strategy: boolean = false): Promise<any[]> {
+export async function getTvlAndApyHistory(protocolOrStrategyName: string, strategy: boolean = false):
+  Promise<[TvlDataPoint[], ApyDataPoint[]]> {
   let summary: StakingProtocolSummary | LSDFiStrategySummary | undefined;
   if (strategy) {
     const strategies = await getLSDFiStrategies();
@@ -117,22 +118,45 @@ export async function getTvlAndApyHistory(protocolOrStrategyName: string, strate
   const endpoint = 'https://yields.llama.fi/chart/' + summary?.defiLlamaPoolId;
   console.log('Fetching TVL and APY history using endpoint: ' + endpoint);
 
-  const res = await fetch(endpoint, { cache: 'no-store' });
+  const [apyResponse, tvlResponse] = await Promise.all([
+    fetch(endpoint, { cache: 'no-store' }),
+    fetch(`${DEFILLAMA_PROTOCOL_ENDPOINT}${summary.defiLlamaProject}`)
+  ]);
 
   // Recommendation: handle errors
-  if (!res.ok) {
-    console.log(res);
+  if (!apyResponse.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch TVL and APY history data');
+    throw new Error('Failed to fetch APY history data for' + protocolOrStrategyName);
   }
 
-  const response = await res.json();
+  // process APY history response
+  const apyData = await apyResponse.json();
 
-  if (response.status !== 'success') {
-    throw new Error('Failed to fetch TVL and APY history data for');
+  if (apyData.status !== 'success') {
+    throw new Error('Failed to fetch APY history data for ' + protocolOrStrategyName);
   }
 
-  return response.data;
+  const apyHistory = apyData.data.map((dataPoint: any) => {
+    return {
+      timestamp: dataPoint.timestamp,
+      apy: dataPoint.apy
+    };
+  });
+
+  // process TVL history response
+  if (!tvlResponse.ok) {
+    throw new Error('Failed to fetch TVL history data for ' + protocolOrStrategyName);
+  }
+
+  const tvlData = await tvlResponse.json();
+  const tvlHistory = tvlData.chainTvls.Ethereum.tvl.map((dataPoint: any) => {
+    return {
+      timestamp: new Date(dataPoint.date * 1000),
+      tvlUsd: dataPoint.totalLiquidityUSD
+    };
+  });
+
+  return [tvlHistory, apyHistory];
 }
 
 // Dune Analytics based TVL and APY

@@ -34,15 +34,15 @@ export function getLSDFiStrategyDisplayNameById(id: LSDFiStrategy): string {
 export function getLSDFiFeeById(id: LSDFiStrategy): Fee[] {
   switch (id) {
     case LSDFiStrategy.OETH:
-      return [{name: "Exit Fee", description: "charged for your OETH amount when you exit", value: 0.5}, {name: "Performance Fee", description: "charged on your yields", value: 20}];
+      return [{ name: "Exit Fee", description: "charged for your OETH amount when you exit", value: 0.5 }, { name: "Performance Fee", description: "charged on your yields", value: 20 }];
     case LSDFiStrategy.Lybra:
-      return [{name: "Service Fee", description: "", value: 1.5}];
+      return [{ name: "Service Fee", description: "", value: 1.5 }];
     case LSDFiStrategy.UNSHETH:
-      return [{name: "Protocol Fee", description: "", value: 0}];
+      return [{ name: "Protocol Fee", description: "", value: 0 }];
     case LSDFiStrategy.SommelierRealYieldETH:
-      return [{name: "Platform Fee", description: "", value: 2}, {name: "Performance Fee", description: "", value: 20}];
+      return [{ name: "Platform Fee", description: "", value: 2 }, { name: "Performance Fee", description: "", value: 20 }];
     case LSDFiStrategy.AlchemixLidoETH:
-      return [{name: "Protocol Fee", description: "charged on your yields", value: 10}];
+      return [{ name: "Protocol Fee", description: "charged on your yields", value: 10 }];
   }
 }
 
@@ -122,6 +122,7 @@ const protocolMapBySlug = new Map<string, StakingProtocolSummary>();
 protocolSlugs.forEach((slug: string) => {
   const stakingProtocol: StakingProtocolSummary = {
     id: StakingProtocol.Lido,
+    defiLlamaProject: slug,
     name: '',
     tvl: 0,
     netApy: 0,
@@ -139,7 +140,7 @@ protocolSlugs.forEach((slug: string) => {
 
       // Lido takes 10% fee on users staking rewards
       // Source: https://docs.lido.fi/#protocol-fee
-      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 10}];
+      stakingProtocol.fees = [{ name: "Protocol Fee", description: "", value: 10 }];
       break;
     case 'frax-ether':
       stakingProtocol.id = StakingProtocol.FraxEther;
@@ -147,7 +148,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.logoUrl = 'FraxEther';
 
       // Source: https://exponential.fi/assets/b8956e66-fe6c-4a88-8e96-530e2e7dea4c
-      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 10}];
+      stakingProtocol.fees = [{ name: "Protocol Fee", description: "", value: 10 }];
       break;
     case 'rocket-pool':
       stakingProtocol.id = StakingProtocol.RocketPool;
@@ -156,7 +157,7 @@ protocolSlugs.forEach((slug: string) => {
 
       // TODO: how do we display 0.05% of deposit fee when ETH is depsoited through protocol?
       // Source: https://twitter.com/Rocket_Pool/status/1506519957986758659
-      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 15}];
+      stakingProtocol.fees = [{ name: "Protocol Fee", description: "", value: 15 }];
       stakingProtocol.depositFee = 0.0005;
       break;
     case 'coinbase-wrapped-staked-eth':
@@ -165,7 +166,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.logoUrl = 'CoinbaseETH';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
-      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 25}];
+      stakingProtocol.fees = [{ name: "Protocol Fee", description: "", value: 25 }];
       break;
     case 'stakewise':
       stakingProtocol.id = StakingProtocol.Stakewise;
@@ -173,7 +174,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.logoUrl = 'Stakewise';
 
       // Source: https://docs.stakewise.io/faq#what-is-the-commission-for-staking-in-stakewise-pool
-      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 10}];
+      stakingProtocol.fees = [{ name: "Protocol Fee", description: "", value: 10 }];
       break;
   }
   protocolMapBySlug.set(slug, stakingProtocol);
@@ -454,6 +455,7 @@ lsdfiStrategySlugs
       stakingApy: 0,
       tokenRewardsApy: 0,
       fees: getLSDFiFeeById(id),
-      features: getLSDFiStrategyFeaturesById(id)
+      features: getLSDFiStrategyFeaturesById(id),
+      defiLlamaProject: slug
     });
   });
