@@ -85,14 +85,14 @@ export function getLSDFiStrategyProtocols(id: LSDFiStrategy): string[] {
     case LSDFiStrategy.OETH:
       return ["Convex",
         "RocketPool",
-        "Frax Ether",
+        "FraxEther",
         "Lido",
         "Morpho"];
     case LSDFiStrategy.Lybra:
       return ["Lido"];
     case LSDFiStrategy.UNSHETH:
-      return ["Frax",
-        "Rocket Pool",
+      return ["FraxEther",
+        "RocketPool",
         "Lido",
         "Coinbase",
         "Ankr",
@@ -101,7 +101,7 @@ export function getLSDFiStrategyProtocols(id: LSDFiStrategy): string[] {
       return ["Morpho",
         "Compound",
         "Aave",
-        "Uniswap v3"];
+        "UniswapV3"];
     case LSDFiStrategy.AlchemixLidoETH:
       return ["Lido"];
   }
@@ -141,7 +141,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'frax-ether':
       stakingProtocol.id = StakingProtocol.FraxEther;
       stakingProtocol.name = 'FraxEther';
-      stakingProtocol.logoUrl = 'frax';
+      stakingProtocol.logoUrl = 'FraxEther';
 
       // Source: https://exponential.fi/assets/b8956e66-fe6c-4a88-8e96-530e2e7dea4c
       stakingProtocol.fees = 10;
