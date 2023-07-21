@@ -111,7 +111,8 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
                   <TableCell key={column.property}>
                     <Link className="w-full" href={`/liquid_staking/${sp.name}`}>
                       {index === 0 && <Image width="35" height="35" alt="" src={`/${sp.logoUrl}.svg`} className="logo" />}
-                      <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text>
+                      {index === 3 && sp.fees.map((fee) => <span key={fee.name}>{fee.value}%</span>)}
+                      {index != 3 ? <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text> : null}
                     </Link>
                   </TableCell>
                 )

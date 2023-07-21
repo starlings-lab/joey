@@ -1,4 +1,4 @@
-import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, RiskDetails, StakingProtocolSummary, LSDFiStrategySummary } from "../types";
+import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, RiskDetails, StakingProtocolSummary, LSDFiStrategySummary, Fee } from "../types";
 
 export function getStakingProtocolDetails(protocolId: StakingProtocol | LSDFiStrategy): StakingProtocolDetails {
   return protocolDetailsMapById.get(protocolId)!;
@@ -31,18 +31,18 @@ export function getLSDFiStrategyDisplayNameById(id: LSDFiStrategy): string {
   }
 }
 
-export function getLSDFiFeeById(id: LSDFiStrategy): number {
+export function getLSDFiFeeById(id: LSDFiStrategy): Fee[] {
   switch (id) {
     case LSDFiStrategy.OETH:
-      return 0;
+      return [{name: "Exit Fee", description: "charged for your OETH amount when you exit", value: 0.5}, {name: "Performance Fee", description: "charged on your yields", value: 20}];
     case LSDFiStrategy.Lybra:
-      return 0;
+      return [{name: "Service Fee", description: "", value: 1.5}];
     case LSDFiStrategy.UNSHETH:
-      return 0;
+      return [{name: "Protocol Fee", description: "", value: 0}];
     case LSDFiStrategy.SommelierRealYieldETH:
-      return 0;
+      return [{name: "Platform Fee", description: "", value: 2}, {name: "Performance Fee", description: "", value: 20}];
     case LSDFiStrategy.AlchemixLidoETH:
-      return 10;
+      return [{name: "Protocol Fee", description: "charged on your yields", value: 10}];
   }
 }
 
@@ -50,13 +50,13 @@ export function getLSDFiStrategyFeaturesById(id: LSDFiStrategy): string[] {
   switch (id) {
     case LSDFiStrategy.OETH:
       // Source: https://docs.oeth.com/core-concepts/yield-generation
-      return ["Index", "Lending", "LP", "Rewards"];
+      return ["Index", "Lending", "LP"];
     case LSDFiStrategy.Lybra:
       return ["Index", "Fees"];
     case LSDFiStrategy.UNSHETH:
       // Source: https://docs.unsheth.xyz/en/unshETH
       // unshETH Real Yield APR = ETH Staking APR + Swap Fee APR (swapping between LSDs) + Mint/Redeem Fee APR
-      return ["Index", "Fees", "LP"];
+      return ["Index", "LP"];
     case LSDFiStrategy.SommelierRealYieldETH:
       return ["Leverage", "Lending", "LP"];
     case LSDFiStrategy.AlchemixLidoETH:
@@ -127,7 +127,7 @@ protocolSlugs.forEach((slug: string) => {
     netApy: 0,
     stakingApy: 0,
     tokenRewardsApy: 0,
-    fees: 0,
+    fees: [],
     logoUrl: ''
   };
 
@@ -139,7 +139,7 @@ protocolSlugs.forEach((slug: string) => {
 
       // Lido takes 10% fee on users staking rewards
       // Source: https://docs.lido.fi/#protocol-fee
-      stakingProtocol.fees = 10;
+      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 10}];
       break;
     case 'frax-ether':
       stakingProtocol.id = StakingProtocol.FraxEther;
@@ -147,7 +147,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.logoUrl = 'FraxEther';
 
       // Source: https://exponential.fi/assets/b8956e66-fe6c-4a88-8e96-530e2e7dea4c
-      stakingProtocol.fees = 10;
+      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 10}];
       break;
     case 'rocket-pool':
       stakingProtocol.id = StakingProtocol.RocketPool;
@@ -156,7 +156,7 @@ protocolSlugs.forEach((slug: string) => {
 
       // TODO: how do we display 0.05% of deposit fee when ETH is depsoited through protocol?
       // Source: https://twitter.com/Rocket_Pool/status/1506519957986758659
-      stakingProtocol.fees = 15;
+      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 15}];
       stakingProtocol.depositFee = 0.0005;
       break;
     case 'coinbase-wrapped-staked-eth':
@@ -165,7 +165,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.logoUrl = 'coinbase';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
-      stakingProtocol.fees = 25;
+      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 25}];
       break;
     case 'stakewise':
       stakingProtocol.id = StakingProtocol.Stakewise;
@@ -173,7 +173,7 @@ protocolSlugs.forEach((slug: string) => {
       stakingProtocol.logoUrl = 'stakewise';
 
       // Source: https://docs.stakewise.io/faq#what-is-the-commission-for-staking-in-stakewise-pool
-      stakingProtocol.fees = 10;
+      stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 10}];
       break;
   }
   protocolMapBySlug.set(slug, stakingProtocol);

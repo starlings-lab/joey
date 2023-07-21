@@ -13,13 +13,19 @@ export enum LSDFiStrategy {
   AlchemixLidoETH
 }
 
+export interface Fee {
+  name: string;
+  description: string;
+  value: number;
+}
+
 export interface ProtocolSummary {
   name: string;
   tvl: number;
   netApy: number;
   stakingApy: number;
   tokenRewardsApy: number;
-  fees: number;
+  fees: Fee[];
   defiLlamaPoolId?: string;
   [key: string]: string | number | undefined | string[];
 }
@@ -73,3 +79,4 @@ export interface RiskDetails {
   slashingInsuranceNote?: string;
   liquidity: Level;
 }
+

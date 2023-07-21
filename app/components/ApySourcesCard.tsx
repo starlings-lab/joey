@@ -1,25 +1,29 @@
 'use client';
 
-import { Card, Flex, Metric, Text, Title } from "@tremor/react";
+import { Card, Flex, Metric, Text, Title, Icon } from "@tremor/react";
 
 import numeral from "numeral";
 import { StakingProtocolSummary, LSDFiStrategySummary } from "../types";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
 export default function ApySourcesCard({ summary, className }: { summary: StakingProtocolSummary | LSDFiStrategySummary, className?: string }) {
   const classes = `${className}`;
   return (
     <Card decoration="top" decorationColor="green" className={classes}>
       <Title className="text-2xl font-bold mb-2">APY Sources</Title>
-      <Flex>
-        <div className="mr-10">
+      <Flex className="justify-start">
+        <div className="mr-12">
           <Text>Net APY</Text>
           <Metric className="mt-2 mb-2">{numeral(summary.netApy).format('0.00')}%</Metric>
-          {summary.tokenRewardsApy === 0 && <Text className="text-xs text-gray-500">* No token rewards offered by the protocol</Text>}
+        </div>
+        <div className="mr-12">
+          <Text>Token Rewards</Text>
+          <Metric className="mt-2 mb-2">{numeral(summary.tokenRewardsApy).format('0.00')}%</Metric>
         </div>
         <div>
-          <Text>Fees</Text>
-          <Metric className="mt-2 mb-2">{numeral(summary.fees).format('0')}%</Metric>
-          {summary.fees > 0 && <Text className="text-xs text-gray-500">* Fees are percentage of staking rewards taken by the protocol</Text>}
+          <div className="flex">
+            {summary.fees.map((fee) => <div className="mr-4" key={fee.name}><Text className="">{fee.name}<Icon icon={InformationCircleIcon} tooltip={fee.description} size="sm" color="neutral" /></Text><Metric className="mt-2 mb-2 flex">{numeral(fee.value).format('0')}%</Metric></div>)}
+          </div>
         </div>
         {/* {
           !!summary.depositFee &&
@@ -28,7 +32,6 @@ export default function ApySourcesCard({ summary, className }: { summary: Stakin
             <Metric className="mt-2 mb-2">{numeral(summary.depositFee).format('0.00')}%</Metric>
           </div>
         } */}
-
       </Flex>
 
     </Card>
