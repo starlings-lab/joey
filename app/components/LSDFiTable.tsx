@@ -25,7 +25,6 @@ const columns = [
   { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY - Fees', format: '0.00', percent: true },
   { label: 'Base APY', property: 'stakingApy', format: '0.00', percent: true },
   { label: 'Token Rewards', property: 'tokenRewardsApy', format: '0.00', percent: true },
-  { label: 'Fees', property: 'fees', info: '% of the Base APY taken by the protocol', format: '0.00', percent: true }
 ]
 
 const sortData = (data: LSDFiStrategySummary[], sortField: string, sortOrder: SortOrder): LSDFiStrategySummary[] => {
