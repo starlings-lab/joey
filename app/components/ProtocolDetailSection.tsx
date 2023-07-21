@@ -4,7 +4,7 @@ import { Flex, Text } from "@tremor/react";
 import { RocketLaunchIcon, BugAntIcon, GlobeAltIcon, UserGroupIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 import { Icon } from "@tremor/react";
 
-import { NameAndUrl, StakingProtocolSummary } from "../types";
+import { NameAndUrl, StakingProtocolSummary, LSDFiStrategySummary } from "../types";
 import { Divider } from "@tremor/react";
 import { getStakingProtocolDetails } from "../data/staticDataService";
 import React, { ElementType } from "react";
@@ -13,12 +13,12 @@ import Image from "next/image";
 
 
 // Component to display protocol details
-export default function ProtocolDetailSection({ summary }: { summary: StakingProtocolSummary }) {
+export default function ProtocolDetailSection({ summary }: { summary: StakingProtocolSummary | LSDFiStrategySummary }) {
   const details = getStakingProtocolDetails(summary.id);
   return (
     <div>
       <div className="flex items-center justify-center">
-        <Image width="240" height="240" alt="" src={summary.logoUrl} />
+        <Image width="240" height="240" alt="" src={`/${summary.name}.svg`} />
       </div>
       <Divider />
       <Detail>

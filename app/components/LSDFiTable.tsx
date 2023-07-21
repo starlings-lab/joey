@@ -16,17 +16,18 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Icon } from "@tremor/react";
 import numeral from 'numeral';
 
-import { StakingProtocolSummary, SortOrder } from '../types';
+import { LSDFiStrategySummary, SortOrder } from '../types';
 
 const columns = [
-  { label: 'Staking Protocol', property: 'name' },
+  { label: 'Strategy', property: 'name' },
+  { label: 'Features', property: 'features' },
   { label: 'TVL', property: 'tvl', format: '($0.00a)' },
-  { label: 'Net APY', property: 'netApy', info: 'Staking APY - Fees', format: '0.00', percent: true },
-  { label: 'Token Rewards APY', property: 'tokenRewardsApy', format: '0.00', percent: true },
-  { label: 'Fees', property: 'fees', info: '% of staking rewards taken by the protocol', format: '0.00', percent: true }
+  { label: 'Net APY', property: 'netApy', info: 'Base APY + Token Rewards APY - Fees', format: '0.00', percent: true },
+  { label: 'Base APY', property: 'stakingApy', format: '0.00', percent: true },
+  { label: 'Token Rewards', property: 'tokenRewardsApy', format: '0.00', percent: true },
 ]
 
-const sortData = (data: StakingProtocolSummary[], sortField: string, sortOrder: SortOrder): StakingProtocolSummary[] => {
+const sortData = (data: LSDFiStrategySummary[], sortField: string, sortOrder: SortOrder): LSDFiStrategySummary[] => {
   if (!sortField || sortOrder === SortOrder.None) {
     return data;
   }
@@ -54,10 +55,10 @@ const sortData = (data: StakingProtocolSummary[], sortField: string, sortOrder: 
 
 const DEFAULT_SORT_ORDER = SortOrder.Ascending;
 
-export default function StakingProtocolsTable({ stakingProtocols }: { stakingProtocols: StakingProtocolSummary[] }) {
+export default function LSDFiTable({ lsdFiStrategies }: { lsdFiStrategies: LSDFiStrategySummary[] }) {
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState(SortOrder.None);
-  const [stakingProtocolsSorted, setStakingProtocolsSorted] = useState(sortData(stakingProtocols, sortField, sortOrder));
+  const [lsdFiSorted, setLSDFiSorted] = useState(sortData(lsdFiStrategies, sortField, sortOrder));
 
   const handleSortingChange = (field: string) => {
     // If the field is the same, toggle the sort order, Otherwise, set the default sort order
@@ -65,10 +66,10 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
       field === sortField && sortOrder === SortOrder.Ascending ? SortOrder.Descending : DEFAULT_SORT_ORDER;
     setSortField(field);
     setSortOrder(newSortOrder);
-    setStakingProtocolsSorted(sortData(stakingProtocols, field, newSortOrder));
+    setLSDFiSorted(sortData(lsdFiStrategies, field, newSortOrder));
   };
 
-  const hasTokenRewardsApy = stakingProtocols.some((sp) => sp.tokenRewardsApy > 0);
+  const hasTokenRewardsApy = lsdFiStrategies.some((sp) => sp.tokenRewardsApy > 0);
   const columnsToUse = columns.filter((column) => (column.property !== 'tokenRewardsApy' || hasTokenRewardsApy));
 
   return (
@@ -99,20 +100,20 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
         </TableRow>
       </TableHead>
       <TableBody>
-        {stakingProtocolsSorted.map((sp) => (
+        {lsdFiSorted.map((sp) => (
           <TableRow key={sp.name}>
             {
               columnsToUse.map((column, index) => {
-                const fieldValue: any = column.format
+                const fieldValue:any = column.format
                   ? numeral(sp[column.property]).format(column.format)
                   : sp[column.property];
 
                 return (
                   <TableCell key={column.property}>
-                    <Link className="w-full" href={`/liquid_staking/${sp.name}`}>
-                      {index === 0 && <Image width="35" height="35" alt="" src={`/${sp.logoUrl}.svg`} className="logo" />}
-                      {index === 3 && sp.fees.map((fee) => <span key={fee.name}>{fee.value}%</span>)}
-                      {index != 3 ? <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text> : null}
+                    <Link className="w-full" href={`/lsdfi/${sp.name}`}>
+                      {index === 0 && <Image width="32" height="32" alt="" src={`/${sp.name}.svg`} className="logo" />}
+                      {index === 1 && sp.features.map((feature) => <span key={feature} className="w-1/4 border border-2 py-1 px-2 m-1 rounded-md">{feature}</span>)}
+                      {index != 1 ? <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text> : null}
                     </Link>
                   </TableCell>
                 )

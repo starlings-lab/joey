@@ -2,22 +2,44 @@ export enum StakingProtocol {
   Lido,
   FraxEther,
   RocketPool,
-  Coinbase,
+  CoinbaseETH,
   Stakewise
 }
+export enum LSDFiStrategy {
+  OETH,
+  UNSHETH,
+  Lybra,
+  SommelierRealYieldETH,
+  AlchemixLidoETH
+}
 
-export interface StakingProtocolSummary {
-  id: StakingProtocol;
+export interface Fee {
+  name: string;
+  description: string;
+  value: number;
+}
+
+export interface ProtocolSummary {
   name: string;
   tvl: number;
   netApy: number;
   stakingApy: number;
   tokenRewardsApy: number;
-  fees: number;
-  logoUrl: string;
+  fees: Fee[];
   defiLlamaPoolId?: string;
+  defiLlamaProject: string;
+  [key: string]: string | number | undefined | string[] | Fee[];
+}
+
+export interface StakingProtocolSummary extends ProtocolSummary {
+  id: StakingProtocol;
+  logoUrl: string;
   depositFee?: number;
-  [key: string]: string | number | undefined;
+}
+
+export interface LSDFiStrategySummary extends ProtocolSummary {
+  id: LSDFiStrategy;
+  features: string[];
 }
 
 export interface NameAndUrl {
@@ -39,9 +61,15 @@ export enum SortOrder {
   Descending
 }
 
-export interface TvlAndApyDataPoint {
+export interface DataPoint {
   timestamp: Date;
+}
+
+export interface TvlDataPoint extends DataPoint {
   tvlUsd: number;
+}
+
+export interface ApyDataPoint extends DataPoint {
   apy: number;
 }
 
@@ -51,10 +79,11 @@ export enum Level {
   High
 }
 
-export interface StakingProtocolRiskDetails {
+export interface RiskDetails {
   multipleAudits: boolean;
   protocolDependencies: string[];
-  hasSlashingInsurance: boolean;
+  hasSlashingInsurance?: boolean;
   slashingInsuranceNote?: string;
   liquidity: Level;
 }
+

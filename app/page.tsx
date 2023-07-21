@@ -1,10 +1,11 @@
-import { Card, Title, Text, Flex } from '@tremor/react';
+import { Card, Text, Flex } from '@tremor/react';
 
+import LSDFiTable from './components/LSDFiTable';
 import StakingProtocolsTable from './components/StakingProtocolsTable';
-import { getStakingProtocols } from './data/dataService';
+import { getStakingProtocolsAndStrategies } from './data/dataService';
 
 export default async function IndexPage() {
-  const stakingProtocols = await getStakingProtocols();
+  const [stakingProtocols, lsdFiStrategies] = await getStakingProtocolsAndStrategies();
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">
@@ -15,8 +16,13 @@ export default async function IndexPage() {
           We deliver concise comparisons across liquid staking and LSDFi protocols.
         </Text>
       </Flex>
+      <div className='text-xl text-left mt-8 mb-4'>Liquid Staking Protocols</div>
       <Card className="mt-6">
         <StakingProtocolsTable stakingProtocols={stakingProtocols} />
+      </Card>
+      <div className='text-xl text-left mt-8 mb-4'>LSDFi</div>
+      <Card className="mt-6">
+        <LSDFiTable lsdFiStrategies={lsdFiStrategies} />
       </Card>
     </main>
   );

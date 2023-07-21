@@ -5,7 +5,7 @@ import { Disclosure } from '@headlessui/react';
 import { Title } from '@tremor/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Joey from './assets/joey.svg'
+import Joey from '../public/joey.svg'
 
 const navigation = [
   { name: '', href: '/' }

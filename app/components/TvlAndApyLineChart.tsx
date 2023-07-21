@@ -2,8 +2,7 @@
 
 import { Card, Title, LineChart } from "@tremor/react";
 
-import { TvlAndApyDataPoint } from "../types";
-import ValueBadgeWithDelta from "../components/ValueBadgeWithDelta";
+import { ApyDataPoint, TvlDataPoint } from "../types";
 import numeral from "numeral";
 
 const tvlFormatter = (number: number) => `${numeral(number).format('($0.00a)')}`;
@@ -12,34 +11,53 @@ type DataByMonth = {
   [key: string]: any;
 };
 
-export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAndApyDataPoint[] }) {
+export default function TvlAndApyLineChart({ apyHistoryData, tvlHistoryData }: { apyHistoryData: ApyDataPoint[], tvlHistoryData: TvlDataPoint[] }) {
 
 
-  const dataByMonth = historyData.reduce((acc: DataByMonth, dataPoint) => {
+  const apyDataByMonth = apyHistoryData.reduce((acc: DataByMonth, dataPoint) => {
+    const key = new Date(dataPoint.timestamp).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+
+    if (!acc[key]) {
+      acc[key] = {
+        monthYear: key,
+        apySum: 0,
+        apyCount: 0
+      };
+    }
+
+    acc[key].apySum += dataPoint.apy;
+    acc[key].apyCount++;
+    return acc;
+  }, {});
+
+  const tvlDataByMonth = tvlHistoryData.reduce((acc: DataByMonth, dataPoint) => {
     const key = new Date(dataPoint.timestamp).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
 
     if (!acc[key]) {
       acc[key] = {
         monthYear: key,
         tvlSum: 0,
-        apySum: 0,
-        tvlCount: 0,
-        apyCount: 0
+        tvlCount: 0
       };
     }
     acc[key].tvlSum += dataPoint.tvlUsd;
     acc[key].tvlCount++;
-    acc[key].apySum += dataPoint.apy;
-    acc[key].apyCount++;
     return acc;
   }, {});
 
-  // array of objects with monthYear, TVL and APY
-  const chartdata = Object.values(dataByMonth).map((dataPoint: any) => {
+  // array of objects with monthYear & APY
+  const apyChartdata = Object.values(apyDataByMonth).map((dataPoint: any) => {
     return {
       monthYear: dataPoint.monthYear,
-      TVL: dataPoint.tvlSum / dataPoint.tvlCount,
       APY: dataPoint.apySum / dataPoint.apyCount
+    }
+  });
+
+  // array of objects with monthYear & TVL
+  const tvlChartdata = Object.values(tvlDataByMonth).map((dataPoint: any) => {
+    return {
+      monthYear: dataPoint.monthYear,
+      TVL: dataPoint.tvlSum / dataPoint.tvlCount
     }
   });
 
@@ -49,7 +67,7 @@ export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAn
         <Title>TVL - Monthly Average</Title>
         <LineChart
           className="md:mt-4"
-          data={chartdata}
+          data={tvlChartdata}
           index="monthYear"
           categories={["TVL"]}
           colors={["emerald"]}
@@ -61,7 +79,7 @@ export default function TvlAndApyLineChart({ historyData }: { historyData: TvlAn
         <Title>Net APY - Monthly Average</Title>
         <LineChart
           className="md:mt-6"
-          data={chartdata}
+          data={apyChartdata}
           index="monthYear"
           categories={["APY"]}
           colors={["blue"]}

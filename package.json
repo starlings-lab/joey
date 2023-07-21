@@ -37,6 +37,7 @@
     "trailingComma": "none"
   },
   "devDependencies": {
-    "@types/numeral": "^2.0.2"
+    "@types/numeral": "^2.0.2",
+    "dotenv": "^16.3.1"
   }
 }
