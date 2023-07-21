@@ -135,7 +135,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'lido':
       stakingProtocol.id = StakingProtocol.Lido;
       stakingProtocol.name = 'Lido';
-      stakingProtocol.logoUrl = 'lido';
+      stakingProtocol.logoUrl = 'Lido';
 
       // Lido takes 10% fee on users staking rewards
       // Source: https://docs.lido.fi/#protocol-fee
@@ -152,7 +152,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'rocket-pool':
       stakingProtocol.id = StakingProtocol.RocketPool;
       stakingProtocol.name = 'RocketPool';
-      stakingProtocol.logoUrl = 'rocketpool';
+      stakingProtocol.logoUrl = 'RocketPool';
 
       // TODO: how do we display 0.05% of deposit fee when ETH is depsoited through protocol?
       // Source: https://twitter.com/Rocket_Pool/status/1506519957986758659
@@ -162,7 +162,7 @@ protocolSlugs.forEach((slug: string) => {
     case 'coinbase-wrapped-staked-eth':
       stakingProtocol.id = StakingProtocol.Coinbase;
       stakingProtocol.name = 'CoinbaseEth';
-      stakingProtocol.logoUrl = 'coinbase';
+      stakingProtocol.logoUrl = 'Coinbase';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
       stakingProtocol.fees = [{name: "Protocol Fee", description: "", value: 25}];
