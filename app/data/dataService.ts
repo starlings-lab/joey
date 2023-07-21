@@ -24,7 +24,11 @@ export async function getStakingProtocolsAndStrategies():
   const protocolMapBySlug = getStakingProtocolMapBySlug();
   const strategyMapBySlug = getLSDFiStrategyMapBySlug();
 
-  response.data.forEach((protocol: any) => {
+  const dataFetchCountRequired = protocolMapBySlug.size + strategyMapBySlug.size;
+  let dataFetchCount = 0;
+
+  // Iterate over the response data and update the tvl and apy for supported protocols and strategies
+  response.data.forEach((protocol: any, index: number) => {
     if (protocol.chain === 'Ethereum') {
       let summary: StakingProtocolSummary | LSDFiStrategySummary | undefined = protocolMapBySlug.get(protocol.project);
 
@@ -45,8 +49,14 @@ export async function getStakingProtocolsAndStrategies():
         summary.tokenRewardsApy = protocol.apyReward || 0;
         summary.defiLlamaPoolId = protocol.pool;
 
-        console.log('Fetched staking protocol: ' + JSON.stringify(protocol));
+        dataFetchCount++;
+        // console.log('Fetched staking protocol: ' + JSON.stringify(protocol) + ' at index: ' + index);
       }
+    }
+
+    // break out of the loop if we have fetched all the data we need
+    if (dataFetchCount === dataFetchCountRequired) {
+      return;
     }
   });
 
