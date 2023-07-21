@@ -1,4 +1,4 @@
-import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, RiskDetails, StakingProtocolSummary } from "../types";
+import { LSDFiStrategy, Level, StakingProtocol, StakingProtocolDetails, RiskDetails, StakingProtocolSummary, LSDFiStrategySummary } from "../types";
 
 export function getStakingProtocolDetails(protocolId: StakingProtocol | LSDFiStrategy): StakingProtocolDetails {
   return protocolDetailsMapById.get(protocolId)!;
@@ -31,18 +31,18 @@ export function getLSDFiStrategyDisplayNameById(id: LSDFiStrategy): string {
   }
 }
 
-export function getLSDFiFeeById(id: LSDFiStrategy): string {
+export function getLSDFiFeeById(id: LSDFiStrategy): number {
   switch (id) {
     case LSDFiStrategy.OETH:
-      return '?';
+      return 0;
     case LSDFiStrategy.Lybra:
-      return '?';
+      return 0;
     case LSDFiStrategy.UNSHETH:
-      return '?';
+      return 0;
     case LSDFiStrategy.SommelierRealYieldETH:
-      return '?';
+      return 0;
     case LSDFiStrategy.AlchemixLidoETH:
-      return '10';
+      return 10;
   }
 }
 
@@ -84,27 +84,31 @@ export function getLSDFiStrategyProtocols(id: LSDFiStrategy): string[] {
   switch (id) {
     case LSDFiStrategy.OETH:
       return ["Convex",
-      "RocketPool",
-      "Frax Ether",
-      "Lido",
-      "Morpho"];
+        "RocketPool",
+        "Frax Ether",
+        "Lido",
+        "Morpho"];
     case LSDFiStrategy.Lybra:
       return ["Lido"];
     case LSDFiStrategy.UNSHETH:
       return ["Frax",
-      "Rocket Pool",
-      "Lido",
-      "Coinbase",
-      "Ankr",
-      "Swell"];
+        "Rocket Pool",
+        "Lido",
+        "Coinbase",
+        "Ankr",
+        "Swell"];
     case LSDFiStrategy.SommelierRealYieldETH:
       return ["Morpho",
-      "Compound",
-      "Aave",
-      "Uniswap v3"];
+        "Compound",
+        "Aave",
+        "Uniswap v3"];
     case LSDFiStrategy.AlchemixLidoETH:
       return ["Lido"];
   }
+}
+
+export function getLSDFiStrategyMapBySlug(): ReadonlyMap<string, LSDFiStrategySummary> {
+  return lsdfiStrategyMapBySlug;
 }
 
 // protocols that we are interested in and its DefiLlama project name/slug
@@ -426,3 +430,28 @@ const LSDFiStrategyIdByNameMap = new Map<string, LSDFiStrategy>([
   ["oeth", LSDFiStrategy.OETH],
   ["alchemix", LSDFiStrategy.AlchemixLidoETH],
 ]);
+
+// LSDFi strategies that we are interested in and its DefiLlama project name/slug
+const lsdfiStrategySlugs = ['origin-ether', 'unsheth'];
+const LSDFiStrategyIdByDLSlugMap = new Map<string, LSDFiStrategy>([
+  ["unsheth", LSDFiStrategy.UNSHETH],
+  ["origin-ether", LSDFiStrategy.OETH],
+]);
+const lsdfiStrategyMapBySlug = new Map<string, LSDFiStrategySummary>();
+
+// Populate map with LSDFi strategies
+lsdfiStrategySlugs
+  .forEach((slug: string) => {
+    const id = LSDFiStrategyIdByDLSlugMap.get(slug)!;
+    lsdfiStrategyMapBySlug.set(slug, {
+      id: id,
+      name: getLSDFiStrategyDisplayNameById(id),
+      tvl: 0,
+      netApy: 0,
+      stakingApy: 0,
+      tokenRewardsApy: 0,
+      fees: getLSDFiFeeById(id),
+      features: getLSDFiStrategyFeaturesById(id),
+      logoUrl: getLSDFiStrategyDisplayNameById(id)
+    });
+  });

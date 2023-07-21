@@ -2,13 +2,10 @@ import { Card, Text, Flex } from '@tremor/react';
 
 import LSDFiTable from './components/LSDFiTable';
 import StakingProtocolsTable from './components/StakingProtocolsTable';
-import { getLSDFiStrategies, getStakingProtocols } from './data/dataService';
+import { getStakingProtocolsAndStrategies } from './data/dataService';
 
 export default async function IndexPage() {
-  const [stakingProtocols, lsdFiStrategies] = await Promise.all([
-    getStakingProtocols(),
-    getLSDFiStrategies(),
-  ]);
+  const [stakingProtocols, lsdFiStrategies] = await getStakingProtocolsAndStrategies();
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-8xl">

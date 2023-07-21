@@ -20,13 +20,13 @@ export interface ProtocolSummary {
   stakingApy: number;
   tokenRewardsApy: number;
   fees: number;
+  defiLlamaPoolId?: string;
   [key: string]: string | number | undefined | string[];
 }
 
 export interface StakingProtocolSummary extends ProtocolSummary {
   id: StakingProtocol;
   logoUrl: string;
-  defiLlamaPoolId?: string;
   depositFee?: number;
 }
 

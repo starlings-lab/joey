@@ -1,10 +1,9 @@
 import { LSDFiStrategySummary, StakingProtocolSummary } from '../types';
-import { getLsdFiTvlAndApy } from './duneDataService';
-import { getLSDFiStrategyFeaturesById, getLSDFiStrategyDisplayNameById, getStakingProtocolMapBySlug, getLSDFiFeeById } from './staticDataService';
-import { getLsdFiStrategyIdByName } from './staticDataService';
+import { getStakingProtocolMapBySlug, getLSDFiStrategyMapBySlug } from './staticDataService';
 
-export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
-  console.log('Fetching staking protocols...');
+export async function getStakingProtocolsAndStrategies():
+  Promise<[StakingProtocolSummary[], LSDFiStrategySummary[]]> {
+  console.log('Fetching staking protocols & LSDFi strategies...');
 
   // fetch for over 2MB of data can not be cached
   const res = await fetch('https://yields.llama.fi/pools', { cache: 'no-store' });
@@ -23,20 +22,46 @@ export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
   }
 
   const protocolMapBySlug = getStakingProtocolMapBySlug();
-  response.data.forEach((protocol: any) => {
-    if (protocol.chain === 'Ethereum' && protocolMapBySlug.has(protocol.project)) {
-      const stakingProtocol = protocolMapBySlug.get(protocol.project)!;
-      stakingProtocol.tvl = protocol.tvlUsd;
-      stakingProtocol.stakingApy = protocol.apyBase || protocol.apy;
-      stakingProtocol.netApy = protocol.apy;
-      stakingProtocol.tokenRewardsApy = protocol.apyReward || 0;
-      stakingProtocol.defiLlamaPoolId = protocol.pool;
+  const strategyMapBySlug = getLSDFiStrategyMapBySlug();
 
-      // console.log('Fetched staking protocol: ' + JSON.stringify(stakingProtocol));
+  response.data.forEach((protocol: any) => {
+    if (protocol.chain === 'Ethereum') {
+      let summary: StakingProtocolSummary | LSDFiStrategySummary | undefined = protocolMapBySlug.get(protocol.project);
+
+      if (!summary) {
+        summary = strategyMapBySlug.get(protocol.project);
+      }
+
+      let skip = false;
+      if (protocol.project === 'unsheth') {
+        // skip the USH-WETH pool
+        skip = protocol.symbol !== 'UNSHETH';
+      }
+
+      if (!skip && summary) {
+        summary.tvl = protocol.tvlUsd;
+        summary.stakingApy = protocol.apyBase || protocol.apy;
+        summary.netApy = protocol.apy;
+        summary.tokenRewardsApy = protocol.apyReward || 0;
+        summary.defiLlamaPoolId = protocol.pool;
+
+        console.log('Fetched staking protocol: ' + JSON.stringify(protocol));
+      }
     }
   });
 
-  return Array.from(protocolMapBySlug.values());
+  return [Array.from(protocolMapBySlug.values()), Array.from(strategyMapBySlug.values())];
+}
+
+export async function getStakingProtocols(): Promise<StakingProtocolSummary[]> {
+  return getStakingProtocolsAndStrategies()
+    .then(([stakingProtocols, _ignore]) => stakingProtocols);
+}
+
+// LSDFi strategies tvl and apy based on DefiLlama data
+export async function getLSDFiStrategies(): Promise<LSDFiStrategySummary[]> {
+  return getStakingProtocolsAndStrategies()
+    .then(([_ignore, lsdFiStrategies]) => lsdFiStrategies);
 }
 
 export async function getStakingProtocolSummary(protocolName: string) {
@@ -46,7 +71,7 @@ export async function getStakingProtocolSummary(protocolName: string) {
 
 export async function getTvlAndApyHistory(protocolName: string): Promise<any[]> {
   const stakingProtocols = await getStakingProtocols();
-  const protocol =  stakingProtocols.find((protocol) => protocol.name === protocolName);
+  const protocol = stakingProtocols.find((protocol) => protocol.name === protocolName);
 
   const endpoint = 'https://yields.llama.fi/chart/' + protocol?.defiLlamaPoolId;
   console.log('Fetching TVL and APY history using endpoint: ' + endpoint);
@@ -69,26 +94,28 @@ export async function getTvlAndApyHistory(protocolName: string): Promise<any[]> 
   return response.data;
 }
 
-export async function getLSDFiStrategies() {
-  return getLsdFiTvlAndApy()
-    .then(tvlApyRows => {
-      return tvlApyRows
-        .map((row: any) => {
-          const id = getLsdFiStrategyIdByName(row["name"])!;
-          return {
-            id: id,
-            name: getLSDFiStrategyDisplayNameById(id),
-            tvl: row.tvlUSD,
-            netApy: row.APY,
-            stakingApy: 0,
-            tokenRewardsApy: 0,
-            fees: getLSDFiFeeById(id),
-            features: getLSDFiStrategyFeaturesById(id),
-            logoUrl: getLSDFiStrategyDisplayNameById(id)
-          }
-        });
-    });
-}
+// Dune Analytics based TVL and APY
+// export async function getLSDFiStrategies() {
+//   return getLsdFiTvlAndApy()
+//     .then(tvlApyRows => {
+//       return tvlApyRows
+//         .map((row: any) => {
+//           const id = getLsdFiStrategyIdByName(row["name"])!;
+//           return {
+//             id: id,
+//             name: getLSDFiStrategyDisplayNameById(id),
+//             tvl: row.tvlUSD,
+//             netApy: row.APY,
+//             stakingApy: 0,
+//             tokenRewardsApy: 0,
+//             fees: getLSDFiFeeById(id),
+//             features: getLSDFiStrategyFeaturesById(id),
+//             logoUrl: getLSDFiStrategyDisplayNameById(id)
+//           }
+//         });
+//     });
+// }
+
 export async function getLSDFiStrategySummary(strategyName: string) {
   const lsdFiStrategies = await getLSDFiStrategies();
   return lsdFiStrategies.find((strategy) => strategy.name === strategyName);
