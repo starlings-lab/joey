@@ -161,7 +161,7 @@ protocolSlugs.forEach((slug: string) => {
       break;
     case 'coinbase-wrapped-staked-eth':
       stakingProtocol.id = StakingProtocol.CoinbaseETH;
-      stakingProtocol.name = 'CoinbaseEth';
+      stakingProtocol.name = 'CoinbaseETH';
       stakingProtocol.logoUrl = 'CoinbaseETH';
 
       // Source: https://help.coinbase.com/en/coinbase/trading-and-funding/pricing-and-fees/fees
