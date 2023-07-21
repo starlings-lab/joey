@@ -22,7 +22,7 @@ export default function ApySourcesCard({ summary, className }: { summary: Stakin
         </div>
         <div>
           <div className="flex">
-            {summary.fees.map((fee) => <div className="mr-4" key={fee.name}><Text className="">{fee.name}<Icon icon={InformationCircleIcon} tooltip={fee.description} size="sm" color="neutral" /></Text><Metric className="mt-2 mb-2 flex">{numeral(fee.value).format('0')}%</Metric></div>)}
+            {summary.fees.map((fee) => <div className="mr-4" key={fee.name}><div className="flex"><Text className="mt-1">{fee.name}</Text><Icon icon={InformationCircleIcon} tooltip={fee.description} size="sm" color="neutral" /></div><Metric className="mb-2 flex">{numeral(fee.value).format('0.00')}%</Metric></div>)}
           </div>
         </div>
         {/* {

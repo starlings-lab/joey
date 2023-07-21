@@ -22,7 +22,7 @@ const columns = [
   { label: 'Strategy', property: 'name' },
   { label: 'Features', property: 'features' },
   { label: 'TVL', property: 'tvl', format: '($0.00a)' },
-  { label: 'Net APY', property: 'netApy', info: 'Staking APY + Token Rewards APY - Fees', format: '0.00', percent: true },
+  { label: 'Net APY', property: 'netApy', info: 'Base APY + Token Rewards APY - Fees', format: '0.00', percent: true },
   { label: 'Base APY', property: 'stakingApy', format: '0.00', percent: true },
   { label: 'Token Rewards', property: 'tokenRewardsApy', format: '0.00', percent: true },
 ]
