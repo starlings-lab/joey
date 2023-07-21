@@ -1,6 +1,8 @@
 import { LSDFiStrategySummary, StakingProtocolSummary } from '../types';
 import { getStakingProtocolMapBySlug, getLSDFiStrategyMapBySlug } from './staticDataService';
 
+const DEFILLAMA_PROTOCOL_ENDPOINT = 'https://api.llama.fi/updatedProtocol/';
+
 export async function getStakingProtocolsAndStrategies():
   Promise<[StakingProtocolSummary[], LSDFiStrategySummary[]]> {
   console.log('Fetching staking protocols & LSDFi strategies...');
@@ -60,6 +62,24 @@ export async function getStakingProtocolsAndStrategies():
     }
   });
 
+  // update TVL data from updated defillama protocol end point
+  const dataPromisMapBySlug = new Map<string, Promise<Response>>();
+  Array.from(protocolMapBySlug.keys()).forEach((slug) => dataPromisMapBySlug.set(slug, fetch(`${DEFILLAMA_PROTOCOL_ENDPOINT}${slug}`)));
+  Array.from(strategyMapBySlug.keys()).forEach((slug) => dataPromisMapBySlug.set(slug, fetch(`${DEFILLAMA_PROTOCOL_ENDPOINT}${slug}`)));
+
+  // wait for all the data to be fetched
+  await Promise.all(dataPromisMapBySlug.values());
+  for (const [slug, dataPromise] of dataPromisMapBySlug.entries()) {
+    const dataResponse = await dataPromise;
+    const data = await dataResponse.json();
+    console.log('Fetched TVL: ' + data.currentChainTvls.Ethereum + ' for slug: ' + slug);
+    const summary: StakingProtocolSummary | LSDFiStrategySummary | undefined = protocolMapBySlug.get(slug) || strategyMapBySlug.get(slug);
+    if (summary) {
+      summary.tvl = data.currentChainTvls.Ethereum;
+    }
+  }
+
+  console.log('Fetched staking protocols & LSDFi strategies: ' + dataFetchCount + ' out of ' + dataFetchCountRequired);
   return [Array.from(protocolMapBySlug.values()), Array.from(strategyMapBySlug.values())];
 }
 
