@@ -112,7 +112,8 @@ export default function LSDFiTable({ lsdFiStrategies }: { lsdFiStrategies: LSDFi
                   <TableCell key={column.property}>
                     <Link className="w-full" href={`/lsdfi/${sp.name}`}>
                       {index === 0 && <Image width="32" height="32" alt="" src={`/${sp.name}.svg`} className="logo" />}
-                      <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text>
+                      {index === 1 && sp.features.map((feature) => <span key={feature} className="w-1/4 border border-2 py-1 px-2 m-1 rounded-md">{feature}</span>)}
+                      {index != 1 ? <Text className={`${column.property} w-full`}>{fieldValue}{column.percent ? '%' : ''}</Text> : null}
                     </Link>
                   </TableCell>
                 )
