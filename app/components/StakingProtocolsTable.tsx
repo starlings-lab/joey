@@ -103,7 +103,7 @@ export default function StakingProtocolsTable({ stakingProtocols }: { stakingPro
           <TableRow key={sp.name}>
             {
               columnsToUse.map((column, index) => {
-                const fieldValue = column.format
+                const fieldValue: any = column.format
                   ? numeral(sp[column.property]).format(column.format)
                   : sp[column.property];
 

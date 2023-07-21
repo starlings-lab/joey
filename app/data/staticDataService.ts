@@ -454,7 +454,6 @@ lsdfiStrategySlugs
       stakingApy: 0,
       tokenRewardsApy: 0,
       fees: getLSDFiFeeById(id),
-      features: getLSDFiStrategyFeaturesById(id),
-      logoUrl: getLSDFiStrategyDisplayNameById(id)
+      features: getLSDFiStrategyFeaturesById(id)
     });
   });

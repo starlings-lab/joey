@@ -27,7 +27,7 @@ export interface ProtocolSummary {
   tokenRewardsApy: number;
   fees: Fee[];
   defiLlamaPoolId?: string;
-  [key: string]: string | number | undefined | string[];
+  [key: string]: string | number | undefined | string[] | Fee[];
 }
 
 export interface StakingProtocolSummary extends ProtocolSummary {
